@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\WeatherForecastService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton('WeatherForecast', function($app) {
+
+            $weatherConditions = array('Sunny', 'Rainy', 'Cloudy', 'Fair', 'Showery', 'Foggy');
+            return new WeatherForecastService( $weatherConditions);
+
+        });
     }
 }

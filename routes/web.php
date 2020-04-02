@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\WeatherForecastService;
+use App\WeatherForecast;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/weather/{city}', function ($city) {
+
+    $weatherConditions = array('Sunny', 'Rainy', 'Cloudy', 'Fair', 'Showery', 'Foggy');
+    $weatherForecastService = new WeatherForecastService($weatherConditions);
+    $weatherForecastService->getWeatherForecast($city);
+
+});
+
+Route::get('/weather-facade/{city}', function ($city) {
+
+    WeatherForecast::getWeatherForecast($city);
+
 });
