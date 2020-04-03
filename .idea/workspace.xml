@@ -113,6 +113,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1ZyxvKkToCQSdvSIzQiInBFbzAa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -121,9 +122,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/migrations" />
+      <recent name="$PROJECT_DIR$/database/seeds" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -150,6 +159,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="472" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585917225010">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="472" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830@0.23.1440.830" timestamp="1585917225010" />
     <state width="1358" height="201" key="GridCell.Tab.0.bottom" timestamp="1585825718329">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
@@ -166,5 +179,9 @@
       <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state width="1358" height="201" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1585825718328" />
+    <state x="375" y="194" key="run.anything.popup" timestamp="1585918033989">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="375" y="194" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1585918033989" />
   </component>
 </project>
