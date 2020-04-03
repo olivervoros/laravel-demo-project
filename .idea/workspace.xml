@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9e7e78-d9f6-4981-b29a-e5668ea88b5b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/WeatherForecast.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/WeatherForecastService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,9 +186,13 @@
       <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state x="521" y="251" key="NewPhpClassDialog/0.23.1440.830@0.23.1440.830" timestamp="1585829804005" />
-    <state x="375" y="194" key="run.anything.popup" timestamp="1585829796522">
+    <state x="375" y="194" width="670" height="675" key="run.anything.popup" timestamp="1585851158974">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="375" y="194" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1585829796522" />
+    <state x="375" y="194" width="670" height="675" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1585851158974" />
+    <state x="375" y="177" width="670" height="676" key="search.everywhere.popup" timestamp="1585851168594">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="375" y="177" width="670" height="676" key="search.everywhere.popup/0.23.1440.830@0.23.1440.830" timestamp="1585851168594" />
   </component>
 </project>
