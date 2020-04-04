@@ -18,3 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/weatherforecast/{city?}', 'WeatherForecastController@index');
+
+// Implicit Route - Model Binding
+Route::get('weatherlogs', function (App\WeatherLog $log) {
+
+    return view('weatherlogs', array('logs' => $log::all()));
+});
