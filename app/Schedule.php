@@ -7,20 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
 
-    /**
-     * Get all of the posts that are assigned this tag.
-     */
-    public function pilots()
+    public function crews()
     {
-        return $this->morphedByMany('App\Pilot', 'schedulable');
+        return $this->morphedByMany('App\Crew', 'schedulable');
     }
 
-    /**
-     * Get all of the videos that are assigned this tag.
-     */
-    public function cabincrews()
+    public function flights()
     {
-        return $this->morphedByMany('App\Cabincrew', 'schedulable');
+        return $this->morphedByMany('App\Flight', 'schedulable');
     }
 
 }

@@ -13,6 +13,6 @@ class FlightSeeder extends Seeder
     public function run()
     {
         $now = date('Y-m-d H:i:s');
-        DB::table('flights')->insert(array(['aircraftId' => 3, 'name' => 'Flight to London', 'created_at' => $now, 'updated_at' => $now], ['aircraftId' => 1, 'name' => 'Flight to Paris', 'created_at' => $now, 'updated_at' => $now], ['aircraftId' => 3, 'name' => 'Flight to Tokyo', 'created_at' => $now, 'updated_at' => $now], ['aircraftId' => 2, 'name' => 'Flight to Barcelona', 'created_at' => $now, 'updated_at' => $now]));
+        DB::table('flights')->insert(array(['aircraft_id' => 3, 'name' => 'Flight to London', 'created_at' => $now, 'updated_at' => $now], ['aircraft_id' => 1, 'name' => 'Flight to Paris', 'created_at' => $now, 'updated_at' => $now], ['aircraft_id' => 3, 'name' => 'Flight to Tokyo', 'created_at' => $now, 'updated_at' => $now], ['aircraft_id' => 2, 'name' => 'Flight to Barcelona', 'created_at' => $now, 'updated_at' => $now]));
     }
 }

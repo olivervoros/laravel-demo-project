@@ -8,6 +8,14 @@ class Airline extends Model
 {
 
     /**
+     * Get the airline's flights. Has many through
+     */
+    public function airlineFlights()
+    {
+        return $this->hasManyThrough('App\Flight', 'App\Aircraft');
+    }
+
+    /**
      * Get the base associated with the airline.
      */
     public function base()

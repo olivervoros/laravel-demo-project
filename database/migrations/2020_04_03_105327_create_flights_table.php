@@ -15,7 +15,7 @@ class CreateFlightsTable extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->integer('aircraftId')->unsigned();
+            $table->integer('aircraft_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });

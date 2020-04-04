@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CabincrewFlight extends Migration
+class CrewFlight extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,11 @@ class CabincrewFlight extends Migration
     public function up()
     {
 
-        Schema::create('cabincrew_flight', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('cabincrew_id')->unsigned();
+        Schema::create('crew_flight', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->integer('crew_id')->unsigned();
             $table->integer('flight_id')->unsigned();
+            $table->timestamps();
 
             // TODO!
             //$table->foreign('cabincrew_id')->references('id')->on('cabincrews');
@@ -34,6 +35,6 @@ class CabincrewFlight extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cabincrew_flight');
+        Schema::dropIfExists('crew_flight');
     }
 }

@@ -14,10 +14,12 @@ class DatabaseSeeder extends Seeder
         $this->call(AircraftSeeder::class);
         $this->call(AirlineSeeder::class);
         $this->call(BaseSeeder::class);
-        $this->call(CabincrewSeeder::class);
+        $this->call(CrewSeeder::class);
         $this->call(FlightSeeder::class);
-        $this->call(PilotSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(ScheduleSeeder::class);
         $this->call(SchedulablesSeeder::class);
+        $this->call(CrewRoleSeeder::class);
+        $this->call(CrewFlightSeeder::class);
     }
 }

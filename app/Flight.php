@@ -7,16 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Flight extends Model
 {
 
-
-
-    public function pilots()
+    public function aircraft()
     {
-        return $this->belongsToMany('App\Pilot');
+        return $this->belongsTo('App\Aircraft');
     }
 
-    public function cabincrews()
+    public function crew()
     {
-        return $this->belongsToMany('App\Cabincrew');
+        return $this->belongsToMany('App\Crew');
     }
 
 }

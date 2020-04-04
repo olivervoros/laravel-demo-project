@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd9e7e78-d9f6-4981-b29a-e5668ea88b5b" name="Default Changelist" comment="" />
+    <list default="true" id="dd9e7e78-d9f6-4981-b29a-e5668ea88b5b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_194244_crew_role.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/CrewFlightSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/CrewRoleSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Airline.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Airline.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Cabincrew.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Crew.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Flight.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Pilot.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Schedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Schedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_102801_create_airlines_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_102801_create_airlines_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_102846_create_aircrafts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_102846_create_aircrafts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105221_create_pilots_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_193508_create_crews_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105233_create_cabin_crews_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_193523_create_roles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105327_create_flights_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_105327_create_flights_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_110730_cabincrew_flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_110730_crew_flight.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_110743_flight_pilot.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/AircraftSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AircraftSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/AirlineSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AirlineSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/BaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/BaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CabincrewSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CrewSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/FlightSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/FlightSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/PilotSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +38,9 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -122,7 +151,10 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -159,10 +191,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="472" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585917225010">
+    <state x="0" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585943452742">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="472" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830@0.23.1440.830" timestamp="1585917225010" />
+    <state x="0" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830@0.23.1440.830" timestamp="1585943452742" />
     <state width="1358" height="201" key="GridCell.Tab.0.bottom" timestamp="1585825718329">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
@@ -179,9 +211,13 @@
       <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state width="1358" height="201" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1585825718328" />
-    <state x="375" y="194" key="run.anything.popup" timestamp="1585918033989">
+    <state x="483" y="251" key="NewPhpClassDialog" timestamp="1585944358088">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="375" y="194" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1585918033989" />
+    <state x="483" y="251" key="NewPhpClassDialog/0.23.1440.830@0.23.1440.830" timestamp="1585944358088" />
+    <state x="375" y="194" key="run.anything.popup" timestamp="1585943323636">
+      <screen x="0" y="23" width="1440" height="830" />
+    </state>
+    <state x="375" y="194" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1585943323636" />
   </component>
 </project>

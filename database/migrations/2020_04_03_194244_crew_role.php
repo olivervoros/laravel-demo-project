@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePilotsTable extends Migration
+class CrewRole extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,18 @@ class CreatePilotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pilots', function (Blueprint $table) {
+
+        Schema::create('crew_role', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('name');
+            $table->integer('crew_id')->unsigned();
+            $table->integer('role_id')->unsigned();
             $table->timestamps();
+
+            // TODO!
+            //$table->foreign('crew_id')->references('id')->on('crews');
+            //$table->foreign('role_id')->references('id')->on('roles');
+
+
         });
     }
 
@@ -27,6 +35,6 @@ class CreatePilotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pilots');
+        Schema::dropIfExists('crew_role');
     }
 }

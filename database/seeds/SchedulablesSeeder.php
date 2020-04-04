@@ -12,6 +12,7 @@ class SchedulablesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('schedulables')->insert(array(['schedule_id' => 1, 'schedulable_id' => 2, 'schedulable_type' => 'App/Pilot', 'created_at' => date('Y-m-d H:i:s')]));
+        $now = date('Y-m-d H:i:s');
+        DB::table('schedulables')->insert(array(['schedulable_id' => 2, 'schedulable_type' => 'App/Crew', 'created_at' => $now, 'updated_at' => $now], ['schedulable_id' => 4, 'schedulable_type' => 'App/Flight', 'created_at'=>  $now, 'updated_at' => $now]));
     }
 }
