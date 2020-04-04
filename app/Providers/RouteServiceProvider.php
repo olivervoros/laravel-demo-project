@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use App\WeatherLog;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,9 +31,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::model('log', WeatherLog::class);
+
+        // Using own resolution logic
+        Route::bind('slug', function ($value) {
+            return WeatherLog::where('log', 'like', "%$value%")->firstOrFail();
+        });
+
     }
 
     /**
