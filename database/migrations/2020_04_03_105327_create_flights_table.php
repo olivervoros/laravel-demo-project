@@ -17,6 +17,8 @@ class CreateFlightsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->integer('aircraft_id')->unsigned();
             $table->string('name');
+            $table->string('flight_number');
+            $table->string('date');
             $table->timestamps();
         });
     }

@@ -2,31 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9e7e78-d9f6-4981-b29a-e5668ea88b5b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Role.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_194244_crew_role.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/CrewFlightSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/CrewRoleSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Address.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/GroundCrew.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Headquaters.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AirlineController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Log.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/SafetyCertification.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_130530_create_headquaters_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_152332_create_logs_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_162919_create_safety_certifications_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/AddressSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/GroundCrewSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/LogSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/SafetyCertificationSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Aircraft.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Aircraft.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Airline.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Airline.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Cabincrew.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Crew.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Flight.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Pilot.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Schedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Schedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Base.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Crew.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Crew.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Role.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_102801_create_airlines_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_102801_create_airlines_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_102846_create_aircrafts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_102846_create_aircrafts_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105221_create_pilots_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_193508_create_crews_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105233_create_cabin_crews_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_193523_create_roles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_104844_create_bases_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_153925_create_addresses_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105327_create_flights_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_105327_create_flights_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_110730_cabincrew_flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_110730_crew_flight.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_110743_flight_pilot.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/AircraftSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AircraftSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_123108_create_schedules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_123108_create_schedules_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_123822_schedulables_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_123822_schedulables_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_193523_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_154626_create_ground_crews_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_194244_crew_role.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/AirlineSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AirlineSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/BaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/BaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/CabincrewSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CrewSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/BaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/HeadquatersSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CrewRoleSeeder.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/FlightSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/FlightSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/PilotSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RoleSeeder.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/ScheduleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ScheduleSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,13 +152,16 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1ZyxvKkToCQSdvSIzQiInBFbzAa" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -190,11 +203,14 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585943452742">
+    <state x="0" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586104027881">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="0" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830@0.23.1440.830" timestamp="1585943452742" />
+    <state x="0" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1440.830@0.23.1440.830" timestamp="1586104027881" />
     <state width="1358" height="201" key="GridCell.Tab.0.bottom" timestamp="1585825718329">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
@@ -211,13 +227,13 @@
       <screen x="0" y="23" width="1440" height="830" />
     </state>
     <state width="1358" height="201" key="GridCell.Tab.0.right/0.23.1440.830@0.23.1440.830" timestamp="1585825718328" />
-    <state x="483" y="251" key="NewPhpClassDialog" timestamp="1585944358088">
+    <state x="483" y="251" key="NewPhpClassDialog" timestamp="1586103636175">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="483" y="251" key="NewPhpClassDialog/0.23.1440.830@0.23.1440.830" timestamp="1585944358088" />
-    <state x="375" y="194" key="run.anything.popup" timestamp="1585943323636">
+    <state x="483" y="251" key="NewPhpClassDialog/0.23.1440.830@0.23.1440.830" timestamp="1586103636175" />
+    <state x="375" y="194" key="run.anything.popup" timestamp="1586104018616">
       <screen x="0" y="23" width="1440" height="830" />
     </state>
-    <state x="375" y="194" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1585943323636" />
+    <state x="375" y="194" key="run.anything.popup/0.23.1440.830@0.23.1440.830" timestamp="1586104018616" />
   </component>
 </project>

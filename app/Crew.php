@@ -12,8 +12,14 @@ class Crew extends Model
         return $this->belongsToMany('App\Flight');
     }
 
-    public function roles() {
-        return $this->belongsToMany('App\Role');
+    public function safetyCertification()
+    {
+        return $this->morphOne('App\SafetyCertification', 'certificationable');
+    }
+
+    public function logs()
+    {
+        return $this->morphMany('App\Log', 'loggable');
     }
 
     public function schedules()

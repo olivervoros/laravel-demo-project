@@ -13,6 +13,6 @@ class AirlineSeeder extends Seeder
     public function run()
     {
         $now = date('Y-m-d H:i:s');
-        DB::table('airlines')->insert(['base_id' => 2, 'name' => 'Eloquent Airline', 'created_at' => $now, 'updated_at' => $now]);
+        DB::table('airlines')->insert(['headquaters_id' => 1, 'name' => 'Eloquent Airlines', 'created_at' => $now, 'updated_at' => $now]);
     }
 }

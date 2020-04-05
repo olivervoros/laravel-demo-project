@@ -13,7 +13,7 @@ class ScheduleSeeder extends Seeder
     public function run()
     {
         $now = date('Y-m-d H:i:s');
-        DB::table('schedules')->insert(array(['flight_id' => 2, 'created_at' => $now, 'updated_at' => $now], ['flight_id' => 1, 'created_at' => $now, 'updated_at' => $now],
-            ['flight_id' => 4, 'created_at' => $now, 'updated_at' => $now], ['flight_id' => 3, 'created_at' => $now, 'updated_at' => $now]));
+        DB::table('schedules')->insert(array(['description' => 'Flight to Rome', 'created_at' => $now, 'updated_at' => $now], ['description' => 'Flight to New York', 'created_at' => $now, 'updated_at' => $now],
+            ['description' => 'Flight to Buenos Aires', 'created_at' => $now, 'updated_at' => $now], ['description' => 'Flight to Warsaw', 'created_at' => $now, 'updated_at' => $now]));
     }
 }

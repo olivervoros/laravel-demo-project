@@ -14,7 +14,8 @@ class SchedulablesTable extends Migration
     public function up()
     {
         Schema::create('schedulables', function (Blueprint $table) {
-            $table->bigIncrements('schedule_id')->unsigned();
+            $table->bigIncrements('id')->unsigned();
+            $table->integer('schedule_id')->unsigned();
             $table->integer('schedulable_id')->unsigned();
             $table->string('schedulable_type');
             $table->timestamps();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBasesTable extends Migration
+class CreateLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateBasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bases', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('base');
+            $table->string('log');
+            $table->string('minutes_flown');
+            $table->integer('loggable_id')->unsigned();
+            $table->string('loggable_type');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateBasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bases');
+        Schema::dropIfExists('logs');
     }
 }
