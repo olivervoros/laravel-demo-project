@@ -39,3 +39,9 @@ Route::get('from-route-service-provider-by-slug/{slug}', function (App\WeatherLo
     return $log;
 });
 
+Route::get('articles/{article}', function (App\Article $article) {
+
+    return $article;
+
+});
+
