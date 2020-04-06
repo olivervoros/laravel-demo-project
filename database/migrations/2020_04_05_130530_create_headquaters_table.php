@@ -15,6 +15,7 @@ class CreateHeadquatersTable extends Migration
     {
         Schema::create('headquaters', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
+            $table->integer('airline_id')->unsigned();
             $table->integer('address_id')->unsigned();
             $table->string('hq');
             $table->timestamps();

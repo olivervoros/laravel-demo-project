@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Write queries for all the possible eloquent model relationships
+Route::get('/one-to-one', 'AirlineController@oneToOne');
+
+Route::get('/one-to-many', 'AirlineController@oneToMany');
+
+Route::get('/many-to-many', 'AirlineController@manyToMany');
+
+Route::get('/has-one-through', 'AirlineController@hasOneThrough');
+
+Route::get('/has-many-through', 'AirlineController@hasManyThrough');
+
+Route::get('/polymorphic-one-to-one', 'AirlineController@polymorphicOneToOne');
+
+Route::get('/polymorphic-one-to-many', 'AirlineController@polymorphicOneToMany');
+
+Route::get('/polymorphic-many-to-many', 'AirlineController@polymorphicManyToMany');

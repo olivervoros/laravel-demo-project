@@ -9,7 +9,7 @@ class Crew extends Model
 
     public function flights()
     {
-        return $this->belongsToMany('App\Flight');
+        return $this->belongsToMany('App\Flight')->withTimestamps();;
     }
 
     public function safetyCertification()

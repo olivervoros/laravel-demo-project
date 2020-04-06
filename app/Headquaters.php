@@ -11,7 +11,7 @@ class Headquaters extends Model
         return $this->belongsTo('App\Airline');
     }
 
-    public function headquaters() {
+    public function address() {
         return $this->hasOne('App\Address');
     }
 

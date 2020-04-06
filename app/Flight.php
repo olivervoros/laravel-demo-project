@@ -12,9 +12,9 @@ class Flight extends Model
         return $this->belongsTo('App\Aircraft');
     }
 
-    public function crew()
+    public function crews()
     {
-        return $this->belongsToMany('App\Crew');
+        return $this->belongsToMany('App\Crew')->withTimestamps();;
     }
 
 }

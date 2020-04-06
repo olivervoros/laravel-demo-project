@@ -13,6 +13,6 @@ class SafetyCertificationSeeder extends Seeder
     public function run()
     {
         $now = date('Y-m-d H:i:s');
-        DB::table('safety_certifications')->insert(array(['certification_code' => 'SdygB67wrb3egvPKge3P', 'certificationable_id' => 2, 'certificationable_type' => 'App/Crew', 'created_at' => $now, 'updated_at' => $now], ['certification_code' => 'UHvhdX6eaNtd99Hcz39J', 'certificationable_id' => 2, 'certificationable_type' => 'App/GroundCrew', 'created_at'=>  $now, 'updated_at' => $now]));
+        DB::table('safety_certifications')->insert(array(['certification_code' => 'SdygB67wrb3egvPKge3P', 'certificationable_id' => 2, 'certificationable_type' => 'App\Crew', 'created_at' => $now, 'updated_at' => $now], ['certification_code' => 'UHvhdX6eaNtd99Hcz39J', 'certificationable_id' => 2, 'certificationable_type' => 'App\GroundCrew', 'created_at'=>  $now, 'updated_at' => $now]));
     }
 }
