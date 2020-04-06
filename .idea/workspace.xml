@@ -3,17 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd9e7e78-d9f6-4981-b29a-e5668ea88b5b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Crew.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Crew.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Flight.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Headquaters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Headquaters.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AirlineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AirlineController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_130530_create_headquaters_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_130530_create_headquaters_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_153925_create_addresses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_153925_create_addresses_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/AddressSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AddressSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/HeadquatersSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/HeadquatersSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/SafetyCertificationSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SafetyCertificationSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

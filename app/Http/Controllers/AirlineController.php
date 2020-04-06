@@ -16,8 +16,7 @@ class AirlineController extends Controller
 
     // 1, ONE-TO_ONE: Airline has one HQ
     public function oneToOne() {
-        $hq = Airline::find(1)->headquaters;
-        dd($hq->hq);
+        return Airline::find(1)->headquaters->hq;
     }
 
     // 2, ONE-TO-MANY: Aircraft has many Flights
