@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    //return Str::evenCharacterUpperCase("vorosoliver");
+
+    $array = ['Oliver', 'Alice', 'Mike', 'Sharon', 'Thomas', 'Susan', 'Mary', 'Peter', 'Samantha'];
+    return Collection::everySecondElementUppercase($array);
 });
