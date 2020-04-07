@@ -7,6 +7,11 @@ More info about me:
 My website: https://www.olivervoros.com 
 LinkedIN: https://www.linkedin.com/in/olivervoros
 
+I learnt a lot from the following blog posts, articles, developers:
+Super Advanced Laravel Tutorial: https://www.youtube.com/playlist?list=PLpzy7FIRqpGD5pN3-Y66YDtxJCYuGumFO
+Great article on various "collections" methods: https://tutsforweb.com/15-laravel-collection-methods/
+Lynda.com advanced Laravel Tutorial: https://www.lynda.com/PHP-tutorials/Advanced-Laravel/800213-2.html
+
 Initial Project Setup:
 
 run composer install
