@@ -6,7 +6,7 @@ use App\Providers\RegisteredUserWonEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendNotificationEmail
+class SendNotificationTextMessageListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -26,6 +26,8 @@ class SendNotificationEmail
      */
     public function handle(RegisteredUserWonEvent $event)
     {
-        dump("Email has been sent to: ".$event->getUser()->email);
+        sleep(10); // Simulate a resource heavy job
+
+        dump("Text message has been sent to: ".$event->getUser()->name);
     }
 }

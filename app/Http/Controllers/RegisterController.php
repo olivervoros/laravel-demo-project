@@ -19,7 +19,7 @@ class RegisterController extends Controller
 
         $request->validate([
             'name' => 'required|max:255|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:App\User,email',
             'password' => 'required|max:255|string|confirmed',
             'age' => 'required|numeric|min:18|max:120'
         ]);
@@ -34,15 +34,16 @@ class RegisterController extends Controller
         // Draw
         if($this->hasUserWon()) {
 
-            // The registered user wins, send a notification email and send a text message too
+            // The registered user won, send a notification email and send a text message too
             event(new RegisteredUserWonEvent($newUser));
+            // you can process the queue with php artisan queue:work &
 
         } else {
 
             dd('No win today!');
         }
 
-        //return redirect('/');
+        dd("You have successfully registered");
     }
 
     private function hasUserWon() {

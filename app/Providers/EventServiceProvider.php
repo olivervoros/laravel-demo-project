@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Listeners\SendNotificationEmail;
-use App\Listeners\SendNotificationTextMessage;
+use App\Listeners\SendNotificationEmailListener;
+use App\Listeners\SendNotificationTextMessageListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,8 +18,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         RegisteredUserWonEvent::class => [
-            SendNotificationEmail::class,
-            SendNotificationTextMessage::class
+            SendNotificationEmailListener::class,
+            SendNotificationTextMessageListener::class
         ]
     ];
 
