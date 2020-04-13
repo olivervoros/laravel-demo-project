@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/articles', 'ArticleController@index');
+Route::get('/reviews', 'ArticleReviewController@create');
+Route::get('/cms/edit-article', 'CmsController@create');
