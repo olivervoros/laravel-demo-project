@@ -10,7 +10,7 @@ class RemoveLinks
     public function handle($articles, \Closure $next) {
 
         foreach($articles as $key => $article) {
-            $articles[$key]['article'] = preg_replace("/<a[^>]+\>[a-z]+/i", "{link removed}", $article['article']);
+            $articles[$key]['article'] = preg_replace("#<a.*?>.*?</a>#i", "{link removed}", $article['article']);
         }
         return $next($articles);
     }
