@@ -18,7 +18,8 @@ class CrewFlight extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->integer('crew_id')->unsigned();
             $table->integer('flight_id')->unsigned();
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
 
             // TODO!
             //$table->foreign('cabincrew_id')->references('id')->on('cabincrews');

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Crew extends Model
 {
+    public $timestamps = true;
 
     public function flights()
     {

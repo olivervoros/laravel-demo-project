@@ -12,7 +12,6 @@ class CrewSeeder extends Seeder
      */
     public function run()
     {
-        $now = date('Y-m-d H:i:s');
-        DB::table('crews')->insert(array(['name' => 'Mary', 'created_at' => $now, 'updated_at' => $now], ['name' => 'Sylvia', 'created_at' => $now, 'updated_at' => $now], ['name' => 'Brian', 'created_at' => $now, 'updated_at' => $now], ['name' => 'Tracy', 'created_at' => $now, 'updated_at' => $now]));
+        DB::table('crews')->insert(array(['name' => 'Mary'], ['name' => 'Sylvia'], ['name' => 'Brian'], ['name' => 'Tracy']));
     }
 }

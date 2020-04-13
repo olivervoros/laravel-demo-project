@@ -18,7 +18,8 @@ class CreateHeadquatersTable extends Migration
             $table->integer('airline_id')->unsigned();
             $table->integer('address_id')->unsigned();
             $table->string('hq');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

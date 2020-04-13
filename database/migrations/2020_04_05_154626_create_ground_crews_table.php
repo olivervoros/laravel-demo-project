@@ -17,7 +17,8 @@ class CreateGroundCrewsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->integer('headquaters_id')->unsigned();
             $table->string('name');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

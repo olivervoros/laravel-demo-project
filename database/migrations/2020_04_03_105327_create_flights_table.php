@@ -19,7 +19,8 @@ class CreateFlightsTable extends Migration
             $table->string('name');
             $table->string('flight_number');
             $table->string('date');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

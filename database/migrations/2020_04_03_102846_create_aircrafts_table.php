@@ -17,7 +17,8 @@ class CreateAircraftsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->integer('airline_id')->unsigned();
             $table->string('type');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

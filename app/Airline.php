@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Airline extends Model
 {
+    public $timestamps = true;
 
     public function headquaters() {
         return $this->hasOne('App\Headquaters');

@@ -12,7 +12,6 @@ class AircraftSeeder extends Seeder
      */
     public function run()
     {
-        $now = date('Y-m-d H:i:s');
-        DB::table('aircrafts')->insert(array(['airline_id' => 1, 'type' => 'Boeing 737', 'created_at' => $now, 'updated_at' => $now], ['airline_id' => 1, 'type' => 'Airbus 320', 'created_at' => $now, 'updated_at' => $now], ['airline_id' => 1, 'type' => 'Boeing 747', 'created_at' => $now, 'updated_at' => $now]));
+        DB::table('aircrafts')->insert(array(['airline_id' => 1, 'type' => 'Boeing 737'], ['airline_id' => 1, 'type' => 'Airbus 320'], ['airline_id' => 1, 'type' => 'Boeing 747']));
     }
 }

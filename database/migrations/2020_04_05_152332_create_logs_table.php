@@ -19,7 +19,8 @@ class CreateLogsTable extends Migration
             $table->string('minutes_flown');
             $table->integer('loggable_id')->unsigned();
             $table->string('loggable_type');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

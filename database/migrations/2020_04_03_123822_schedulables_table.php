@@ -18,7 +18,8 @@ class SchedulablesTable extends Migration
             $table->integer('schedule_id')->unsigned();
             $table->integer('schedulable_id')->unsigned();
             $table->string('schedulable_type');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
 
     }

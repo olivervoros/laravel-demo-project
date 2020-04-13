@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Headquaters extends Model
 {
+    public $timestamps = true;
 
     public function airline() {
         return $this->belongsTo('App\Airline');

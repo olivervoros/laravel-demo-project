@@ -18,7 +18,8 @@ class CreateSafetyCertificationsTable extends Migration
             $table->string('certification_code');
             $table->integer('certificationable_id')->unsigned();
             $table->string('certificationable_type');
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

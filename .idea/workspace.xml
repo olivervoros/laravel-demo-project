@@ -3,7 +3,41 @@
   <component name="ChangeListManager">
     <list default="true" id="dd9e7e78-d9f6-4981-b29a-e5668ea88b5b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AirlineController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AirlineController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Address.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Address.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Aircraft.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Aircraft.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Airline.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Airline.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Crew.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Crew.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Flight.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/GroundCrew.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GroundCrew.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Headquaters.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Headquaters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Log.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Log.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SafetyCertification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SafetyCertification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Schedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Schedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_102801_create_airlines_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_102801_create_airlines_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_102846_create_aircrafts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_102846_create_aircrafts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_105327_create_flights_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_105327_create_flights_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_110730_crew_flight.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_110730_crew_flight.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_123108_create_schedules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_123108_create_schedules_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_123822_schedulables_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_123822_schedulables_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_03_193508_create_crews_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_03_193508_create_crews_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_130530_create_headquaters_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_130530_create_headquaters_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_152332_create_logs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_152332_create_logs_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_153925_create_addresses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_153925_create_addresses_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_154626_create_ground_crews_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_154626_create_ground_crews_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_05_162919_create_safety_certifications_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_05_162919_create_safety_certifications_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/AddressSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AddressSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/AircraftSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AircraftSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/AirlineSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/AirlineSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CrewFlightSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CrewFlightSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CrewSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CrewSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/FlightSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/FlightSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/GroundCrewSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/GroundCrewSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/HeadquatersSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/HeadquatersSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/LogSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/LogSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/SafetyCertificationSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SafetyCertificationSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SchedulablesSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/ScheduleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ScheduleSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

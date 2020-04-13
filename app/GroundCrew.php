@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GroundCrew extends Model
 {
+    public $timestamps = true;
 
     public function headquaters()
     {

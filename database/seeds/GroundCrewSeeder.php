@@ -12,7 +12,6 @@ class GroundCrewSeeder extends Seeder
      */
     public function run()
     {
-        $now = date('Y-m-d H:i:s');
-        DB::table('ground_crews')->insert(array(['headquaters_id' => 1, 'name' => 'John', 'created_at' => $now, 'updated_at' => $now], ['headquaters_id' => 1, 'name' => 'Susan', 'created_at' => $now, 'updated_at' => $now]));
+        DB::table('ground_crews')->insert(array(['headquaters_id' => 1, 'name' => 'John'], ['headquaters_id' => 1, 'name' => 'Susan']));
     }
 }

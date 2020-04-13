@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aircraft extends Model
 {
+    public $timestamps = true;
 
     public function aircraftType() {
         return $this->belongsTo('App\aircraftType');
