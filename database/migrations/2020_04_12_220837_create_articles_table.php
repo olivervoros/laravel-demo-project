@@ -18,7 +18,8 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->mediumText('article');
             $table->boolean('published')->default(0);
-            $table->timestamps();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
