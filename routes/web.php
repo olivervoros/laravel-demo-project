@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'EmployeeController@index');
+Route::get('/employee/{employeeId}', 'EmployeeController@show');
+Route::get('/employee/{employeeId}/update', 'EmployeeController@update');
+Route::get('/employee/{employeeId}/delete', 'EmployeeController@destroy');
