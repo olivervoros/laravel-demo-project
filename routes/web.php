@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ArticleController@index');
+Route::get('/getall', 'ArticleController@getArticlesIncludingSoftDeleted');
+
+Route::get('/restore/{articleId}', 'ArticleController@restore');
+
+Route::get('/delete/{articleId}', 'ArticleController@destroy');
+Route::get('/harddelete/{articleId}', 'ArticleController@harddestroy');
+
