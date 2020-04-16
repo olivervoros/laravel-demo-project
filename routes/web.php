@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/lazy', 'ArticleController@lazy');
+
+Route::get('/eager', 'ArticleController@eager');
