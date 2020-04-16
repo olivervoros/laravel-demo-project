@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Example route middleware
+Route::view('/test', 'welcome')->middleware('filter.ip');
