@@ -81,7 +81,9 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <p>{{ __('text.fruit') }}</p>
+                    <p> {{ trans_choice('text.fruit', 1) }}</p>
+                    <p> {{ __('text.sayHello', ['user' => "Oliver"]) }}</p>
                 </div>
 
                 <div class="links">
