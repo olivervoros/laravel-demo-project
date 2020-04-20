@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('employees/{employeeId}','EmployeeController@show')->name('employeePage');
+
+Route::get('employees/{employeeId}/activate', 'EmployeeController@activate')
+    ->name('activateAccount')->middleware('signed');
