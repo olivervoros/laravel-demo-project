@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Article;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ArticlePolicy
 {
@@ -30,7 +31,9 @@ class ArticlePolicy
      */
     public function view(User $user, Article $article)
     {
-        return $user->id === $article->user_id;
+        return $user->id === $article->user_id
+            ? Response::allow()
+            : Response::deny('You are only allowed to view your own articles... - (see ArticlePolicy)');
     }
 
     /**
