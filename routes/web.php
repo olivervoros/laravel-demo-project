@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/fire', function () {
+    event(new \App\Events\TestEvent());
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
