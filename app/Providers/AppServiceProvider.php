@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\FlightInfoEventGenerator;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->singleton('FlightinfoEventGeneratorService', function($app) {
+            return new FlightInfoEventGenerator();
+        });
+
         $user = factory(User::class)->make();
         Auth::login($user);
     }
