@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\FlightInfoEventGenerator;
+use App\Mixins\StringMixins;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -24,24 +25,17 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws \ReflectionException
      */
     public function boot()
     {
-        $this->app->singleton('FlightinfoEventGeneratorService', function($app) {
+        $this->app->singleton('FlightInfoEventGeneratorService', function($app) {
             return new FlightInfoEventGenerator();
         });
 
         $user = factory(User::class)->make();
         Auth::login($user);
 
-        Str::macro('generateRandomAlphabets', function($length = 10) {
-            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $charactersLength = strlen($characters);
-            $randomString = '';
-            for ($i = 0; $i < $length; $i++) {
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
-            }
-            return $randomString;
-        });
+        Str::mixin(new StringMixins());
     }
 }

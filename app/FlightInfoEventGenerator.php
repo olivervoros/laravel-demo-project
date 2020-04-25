@@ -15,7 +15,7 @@ class FlightInfoEventGenerator
     public function generateFlightInfoEvent() {
         $random_number = random_int(1, 100);
         $flightNumber = random_int(100, 999);
-        $airlineCode = strtoupper(Str::generateRandomAlphabets(3));
+        $airlineCode = Str::generateRandomAlphabets(3);
         $delayMinutes = random_int(30, 120);
         $destinations = ['Budapest', 'London', 'Barcelona', 'Rome', 'Frankfurt', 'Berlin', 'Warsaw', 'Wien', 'Madrid', 'Helsinki'];
         $randomDestination = $destinations[array_rand($destinations)];
