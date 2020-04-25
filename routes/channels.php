@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Broadcast;
 //    return (int) $user->id === (int) $id;
 //});
 
-Broadcast::channel('test', function ($user) {
+Broadcast::channel('flight-info', function ($user) {
     return true; // just allow all authenticated users
 });
