@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +14,22 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::get('/', 'ArticleController@index');
+Route::get('/filter', 'CollectionController@filter');
+Route::get('/search', 'CollectionController@search');
+Route::get('/chunk', 'CollectionController@chunk');
+Route::get('/map', 'CollectionController@map');
+Route::get('/zip', 'CollectionController@zip');
+Route::get('/wherenotin', 'CollectionController@wherenotin');
+Route::get('/max', 'CollectionController@max');
+Route::get('/pluck', 'CollectionController@pluck');
+Route::get('/each', 'CollectionController@each');
+Route::get('/tap', 'CollectionController@tap');
+Route::get('/pipe', 'CollectionController@pipe');
+Route::get('/contains', 'CollectionController@contains');
+Route::get('/forget', 'CollectionController@forget');
+Route::get('/avg', 'CollectionController@avg');
+Route::get('/collapse', 'CollectionController@collapse');
+Route::get('/combine', 'CollectionController@combine');
+
+
+
