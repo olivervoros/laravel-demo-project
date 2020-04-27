@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CrewFlight extends Migration
+class SchedulablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,15 @@ class CrewFlight extends Migration
      */
     public function up()
     {
-
-        Schema::create('crew_flight', function (Blueprint $table) {
+        Schema::create('schedulables', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->integer('crew_id')->unsigned();
-            $table->integer('flight_id')->unsigned();
+            $table->bigInteger('schedule_id')->unsigned();
+            $table->bigInteger('schedulable_id')->unsigned();
+            $table->string('schedulable_type');
             $table->timestamp('updated_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
-
-            // TODO!
-            //$table->foreign('cabincrew_id')->references('id')->on('cabincrews');
-            //$table->foreign('flight_id')->references('id')->on('flights');
-
-
         });
+
     }
 
     /**
@@ -36,6 +31,6 @@ class CrewFlight extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crew_flight');
+        Schema::dropIfExists('schedulables');
     }
 }
