@@ -2,39 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-use App\Article;
+use Illuminate\Support\Collection;
+use function foo\func;
 
 class CollectionController extends Controller
 {
 
-    private $collection = [[
-
-        'user_id' => '1',
-        'title' => 'Helpers in Laravel',
-        'content' => 'Create custom helpers in Laravel',
-        'category' => 'php'
+    private $collection = [
+        [
+            'user_id' => 1,
+            'user_age' => 18,
+            'user_name' => 'David',
+            'title' => 'Helpers in Laravel',
+            'content' => 'Create custom helpers in Laravel',
+            'category' => 'php'
         ],
         [
-            'user_id' => '2',
+            'user_id' => 2,
+            'user_age' => 23,
+            'user_name' => 'Fraser',
             'title' => 'Testing in Laravel',
             'content' => 'Testing File Uploads in Laravel',
             'category' => 'php'
         ],
         [
-            'user_id' => '3',
+            'user_id' => 3,
+            'user_age' => 65,
+            'user_name' => 'Oliver',
             'title' => 'Telegram Bot',
             'content' => 'Crypto Telegram Bot in Laravel',
             'category' => 'php'
         ],
         [
-            'user_id' => '4',
+            'user_id' => 4,
+            'user_age' => 36,
+            'user_name' => 'Paul',
             'title' => 'Title Number 4',
             'content' => 'Article 4',
             'category' => 'node.js'
         ],
         [
-            'user_id' => '5',
+            'user_id' => 5,
+            'user_age' => 43,
+            'user_name' => 'Jack',
             'title' => 'Title Number 5',
             'content' => 'Long Article 5',
             'category' => 'react'
@@ -55,8 +67,8 @@ class CollectionController extends Controller
 
     public function search()
     {
-        $names = collect(['Alex', 'John', 'Jason', 'Martyn', 'Hanlin']);
-        $result1 = $names->search('Jason');
+        $names = collect($this->collection)->pluck('user_name');
+        $result1 = $names->search('Fraser');
         dump($result1);
 
         // Another search example
@@ -68,9 +80,7 @@ class CollectionController extends Controller
 
     public function chunk()
     {
-        $prices = collect([18, 23, 65, 36, 97, 43, 81]);
-        $result = $prices->chunk(3)->toArray();
-        dump($result);
+        dump(collect($this->collection)->chunk(2)->toArray());
     }
 
     public function map()
@@ -144,11 +154,7 @@ class CollectionController extends Controller
 
     public function contains()
     {
-        $contains = collect(['country' => 'USA', 'state' => 'NY']);
-        dump($contains->contains('USA')); // true
-        dump($contains->contains('UK')); // false
 
-        // Another example
         dump(collect($this->collection)->contains('user_id', '1')); // true
         dump(collect($this->collection)->contains('title', 'Not Found Title')); // false
 
@@ -160,28 +166,16 @@ class CollectionController extends Controller
         dump($result);
     }
 
-    // FORGET -> Does not work on multidimensional arrays
+    // FORGET -> Does not work on multidimensional array
     public function forget()
     {
-        $forget = collect(['country' => 'usa', 'state' => 'ny']);
-        $result = $forget->forget('country')->all();
-        dump($result);
+        dump(collect($this->collection[0])->forget('user_name')->all());
     }
 
     public function avg()
     {
-        $result = collect([
-            ['shoes' => 10],
-            ['shoes' => 35],
-            ['shoes' => 7],
-            ['shoes' => 68],
-        ])->avg('shoes');
+        dump(collect($this->collection)->avg('user_age'));
 
-        dump($result);
-
-        // Another Example
-        $avg = collect([12, 32, 54, 92, 37]);
-        dump($avg->avg());
     }
 
     // COLLAPSE -> the opposite of the chunk method, do not work on multidimensional arrays
@@ -202,6 +196,58 @@ class CollectionController extends Controller
 
         // returns ['column1' => 'value1', 'column2' => 'value2']; returns a collection so you can do ->first() for example
     }
+
+    public function nth()
+    {
+        dump(collect($this->collection)->pluck('user_id')->nth(2,0));
+    }
+
+    public function times()
+    {
+        $result = Collection::times(3, function ($value) {
+            return factory(User::class)->make();
+        })->toArray();
+
+        dump($result);
+    }
+
+    public function take()
+    {
+        dump(collect($this->collection)->take(3));
+
+        dump(collect($this->collection)->take(-2)); // take from the back
+
+        $newCollection = collect($this->collection)->take(2);
+        dd($newCollection);
+    }
+
+    public function last()
+    {
+        dump(collect($this->collection)->last()); // This is the same as take(-1)
+
+        $result = collect($this->collection)->last(function($element) {
+            return $element['user_age'] < 30;
+        }, 20);
+
+        dump($result);
+    }
+
+    public function reverse()
+    {
+        dump(collect($this->collection)->reverse()); // maintains and reserves the keys too
+
+        dump(collect($this->collection)->reverse()->values()); // do not maintain the keys
+    }
+
+    public function only()
+    {
+        dump(collect($this->collection)->only(0, 2, 4)); // Grabs the elements with key 0,2,4
+
+        dump(collect($this->collection[0])->only('user_id', 'user_name'));
+        dump(collect($this->collection[0])->only(['user_age', 'title']));
+    }
+
+
 
 
 }

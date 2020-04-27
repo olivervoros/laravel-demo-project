@@ -30,6 +30,12 @@ Route::get('/forget', 'CollectionController@forget');
 Route::get('/avg', 'CollectionController@avg');
 Route::get('/collapse', 'CollectionController@collapse');
 Route::get('/combine', 'CollectionController@combine');
+Route::get('/nth', 'CollectionController@nth');
+Route::get('/times', 'CollectionController@times');
+Route::get('/take', 'CollectionController@take');
+Route::get('/last', 'CollectionController@last');
+Route::get('/reverse', 'CollectionController@reverse');
+Route::get('/only', 'CollectionController@only');
 
 
 
