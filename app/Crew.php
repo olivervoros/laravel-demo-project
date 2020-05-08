@@ -7,7 +7,7 @@ class Crew
 {
     private $name;
     private $position;
-    private $availablePositions = ['pilot', 'cabinCrew'];
+    private $availablePositions = ['pilot', 'cabincrew'];
 
     /**
      * Crew constructor.
@@ -21,7 +21,7 @@ class Crew
             throw new \Exception("Invalid Crew Type...");
         }
         $this->name = $name;
-        $this->position = $position;
+        $this->position = strtolower($position);
     }
 
     /**
@@ -53,7 +53,7 @@ class Crew
      */
     public function setPosition($position): void
     {
-        $this->position = $position;
+        $this->position = strtolower($position);
     }
 
 

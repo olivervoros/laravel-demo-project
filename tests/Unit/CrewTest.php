@@ -12,7 +12,7 @@ class CrewTest extends TestCase
     protected $crew;
 
     public function setUp():void {
-        $this->crew = new Crew("Oliver", "Pilot");
+        $this->crew = new Crew("Oliver", "pilot");
     }
 
     /** @test */
@@ -24,7 +24,7 @@ class CrewTest extends TestCase
     /** @test */
     public function a_crew_has_a_position()
     {
-        $this->assertEquals('Pilot', $this->crew->getPosition());
+        $this->assertEquals('pilot', $this->crew->getPosition());
     }
 
     /** @test */
