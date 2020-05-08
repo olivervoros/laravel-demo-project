@@ -24,7 +24,6 @@ class Flight
      * @param $estimatedTimeOfArrival
      * @param $departureAirport
      * @param $arrivalAirport
-     * @param array $crew
      */
     public function __construct(string $flightNumber, string $estimatedTimeOfDeparture, string $estimatedTimeOfArrival, string $departureAirport, string $arrivalAirport)
     {
@@ -134,7 +133,7 @@ class Flight
         $this->crew[] = $crew;
     }
 
-    public function getCrewOnFlight() {
+    protected function getCrewOnFlight() {
         $totalCrew = $this->getTotalCrew();
         $numPilots = 0;
         $numCabinCrews = 0;

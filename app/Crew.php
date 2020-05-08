@@ -45,7 +45,7 @@ class Crew
      */
     public function getPosition()
     {
-        return $this->position;
+        return strtolower($this->position);
     }
 
     /**
