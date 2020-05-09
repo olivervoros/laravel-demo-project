@@ -2,12 +2,18 @@
 
 namespace App\FishingCompetition;
 
+use App\FishingCompetition\Exceptions\{CompetitionIsFinishedException,
+    CompetitionIsFullException, MaximumFishermenNumberExceededException, ZeroOrNegativeFishermanLimitSetException};
+
+
 class FishingCompetition {
 
     private $title;
     private $registeredFishermen = [];
     private $db;
     private $numberOfFishermenParticipants = 0;
+    private $result = [];
+    private $competitionIsFinished = false;
 
     const MAXIMUM_FISHERMEN_PARTICIPANTS = 10;
 
@@ -51,23 +57,14 @@ class FishingCompetition {
         $this->db = $db;
     }
 
-    
-
-    private function validateCompetition(int $numberOfFishermenParticipants) {
-        if($numberOfFishermenParticipants < 1) {
-            throw new \Exception('Cannot have negative or zero fishermen registered for the competition.');
-        }
-
-        if(self::MAXIMUM_FISHERMEN_PARTICIPANTS < $numberOfFishermenParticipants) {
-            throw new \Exception('Cannot have more than '.self::MAXIMUM_FISHERMEN_PARTICIPANTS.' fishermen registered');
-        }
-    }
-
     public function addFisherman(Fisherman $fisherman) {
 
-        // 1. Check if there is still place to register
         if($this->isCompetitionFull()) {
-            throw new \Exception('The competition is already full.');
+            throw new CompetitionIsFullException('The competition is already full.');
+        }
+
+        if($this->isCompetitionFinished()) {
+            throw new CompetitionIsFinishedException('The competition is finished.');
         }
 
         $this->registeredFishermen[] = $fisherman;
@@ -77,12 +74,20 @@ class FishingCompetition {
     }
 
     public function runCompetition() {
-        foreach($this->registeredFishermen as $key => $fisherman) {
-            $randomScore = random_int(1, 100);
-            $this->registeredFishermen[$key]->score = $randomScore;
+
+        if($this->isCompetitionFinished()) {
+            throw new CompetitionIsFinishedException('The competition is finished.');
         }
 
-        return ksort($this->registeredFishermen);
+        foreach($this->registeredFishermen as $key => $fisherman) {
+            $randomScore = random_int(1, 100);
+            $this->registeredFishermen[$key]->setScore($randomScore);
+        }
+
+        $this->result = $this->registeredFishermen;
+        $this->competitionIsFinished = true;
+
+        return $this->result;
 
     }
 
@@ -94,6 +99,20 @@ class FishingCompetition {
     public function getNumberOfRegisteredFishermen():int {
 
         return count($this->registeredFishermen);
+    }
+
+    private function validateCompetition(int $numberOfFishermenParticipants) {
+        if($numberOfFishermenParticipants < 1) {
+            throw new ZeroOrNegativeFishermanLimitSetException('Cannot have negative or zero fishermen registered for the competition.');
+        }
+
+        if(self::MAXIMUM_FISHERMEN_PARTICIPANTS < $numberOfFishermenParticipants) {
+            throw new MaximumFishermenNumberExceededException('Cannot have more than '.self::MAXIMUM_FISHERMEN_PARTICIPANTS.' fishermen registered');
+        }
+    }
+
+    private function isCompetitionFinished() {
+        return $this->competitionIsFinished;
     }
 
 }

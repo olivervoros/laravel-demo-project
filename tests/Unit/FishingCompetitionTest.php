@@ -23,7 +23,7 @@ class FishingCompetitionTest extends TestCase {
     /** @test */
     public function negative_fishing_competition_limit_returns_an_exception() {
 
-        $this->expectException("\Exception");
+        $this->expectException("App\FishingCompetition\Exceptions\ZeroOrNegativeFishermanLimitSetException");
 
         $dbProphecy = $this->prophesize(Db::class);
         $dummyDb = $dbProphecy->reveal(); // This is a dummy
@@ -35,7 +35,7 @@ class FishingCompetitionTest extends TestCase {
     /** @test */
     public function zero_fishing_competition_limit_returns_an_exception() {
 
-        $this->expectException("\Exception");
+        $this->expectException("App\FishingCompetition\Exceptions\ZeroOrNegativeFishermanLimitSetException");
 
         $dbProphecy = $this->prophesize(Db::class);
         $dummyDb = $dbProphecy->reveal();
@@ -47,7 +47,7 @@ class FishingCompetitionTest extends TestCase {
     /** @test */
     public function higher_than_maximum_fishing_competition_limit_returns_an_exception() {
 
-        $this->expectException("\Exception");
+        $this->expectException("App\FishingCompetition\Exceptions\MaximumFishermenNumberExceededException");
 
         $dbProphecy = $this->prophesize(Db::class);
         $dummyDb = $dbProphecy->reveal();
@@ -100,7 +100,7 @@ class FishingCompetitionTest extends TestCase {
 
        $competition = new FishingCompetition($dummyDb, "Test Competition", 10);
        $fisherman1 = new Fisherman('Oliver', 'oliver@test.com', 22);
-       $fisherman2 = new Fisherman('Bernarda', 'bernarda@test', 43);
+       $fisherman2 = new Fisherman('Susan', 'suzy@test', 43);
        $fisherman3 = new Fisherman('James', 'james@test', 30);
 
        $competition->addFisherman($fisherman1);
@@ -109,6 +109,47 @@ class FishingCompetitionTest extends TestCase {
 
        $dbProphecy->saveRecords(Argument::type(Fisherman::class))->shouldHaveBeenCalled(); // SPY
    }
+
+   /** @test */
+    public function after_running_the_competition_we_have_a_result()
+    {
+        $result = $this->runCompetition();
+        $this->assertIsArray($result);
+    }
+
+    /** @test */
+    public function after_running_the_competition_all_fishermen_has_the_score_between_one_and_hundred()
+    {
+        $result = $this->runCompetition();
+        foreach($result as $res) {
+            $this->assertGreaterThan(0, $res->getScore());
+            $this->assertLessThan(101, $res->getScore());
+        }
+    }
+
+    /** @test */
+    public function cannot_add_fisherman_to_finished_competition() {
+
+        $this->expectException("App\FishingCompetition\Exceptions\CompetitionIsFinishedException");
+
+        $dbProphecy = $this->prophesize(Db::class);
+        $dummyDb = $dbProphecy->reveal();
+
+        $competition = new FishingCompetition($dummyDb, "Test Competition", 10);
+        $fisherman1 = new Fisherman('Oliver', 'oliver@test.com', 22);
+        $fisherman2 = new Fisherman('Susan', 'suzy@test', 43);
+        $fisherman3 = new Fisherman('James', 'james@test', 30);
+
+        $competition->addFisherman($fisherman1);
+        $competition->addFisherman($fisherman2);
+        $competition->addFisherman($fisherman3);
+
+        $competition->runCompetition();
+
+        $fisherman4 = new Fisherman('Steve', 'steve@test.com', 44);
+        $competition->addFisherman($fisherman4);
+
+    }
 
     /**
      * @dataProvider fishermanDataProvider
@@ -140,11 +181,27 @@ class FishingCompetitionTest extends TestCase {
 
     public function fishermanDataProvider() {
         return  [
-            [new Fisherman('Szabo Janos', 'szj.@gamil.com', 22)],
-            [new Fisherman('Kovacs Alajos', 'ka.@gamil.com', 29)],
-            [new Fisherman('Nemeth Timea', 'nt@gmail.com', 45)],
-            [new Fisherman('Dajka Laszlo', 'dl@gmail.com', 55)]
+            [new Fisherman('John Smith', 'js.@test.com', 22)],
+            [new Fisherman('Kevin Denton', 'kd.@test.com', 29)],
+            [new Fisherman('Michael Harris', 'mh@testl.com', 45)],
+            [new Fisherman('Dave Connor', 'dc@gtest.com', 55)]
         ];
+    }
+
+    private function runCompetition() {
+        $dbProphecy = $this->prophesize(Db::class);
+        $dummyDb = $dbProphecy->reveal();
+
+        $competition = new FishingCompetition($dummyDb, "Test Competition", 10);
+        $fisherman1 = new Fisherman('Oliver', 'oliver@test.com', 22);
+        $fisherman2 = new Fisherman('Susan', 'suzy@test', 43);
+        $fisherman3 = new Fisherman('James', 'james@test', 30);
+
+        $competition->addFisherman($fisherman1);
+        $competition->addFisherman($fisherman2);
+        $competition->addFisherman($fisherman3);
+
+        return $competition->runCompetition();
     }
 
 }
