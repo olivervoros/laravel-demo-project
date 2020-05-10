@@ -43,7 +43,7 @@ class FlightTest extends TestCase
     }
 
     /** @test */
-    public function can_save_a_new_flight_and_after_we_will_have_a_total_of_six_flights() {
+    public function can_save_a_new_flight_in_the_database_and_after_we_will_have_a_total_of_six_flights() {
 
         $flightData = ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0];
         new Flight($this->repo, $flightData);

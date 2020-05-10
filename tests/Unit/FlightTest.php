@@ -5,8 +5,6 @@ namespace Tests\Unit;
 
 use App\Crew;
 use App\Flight;
-use App\Repositories\CrewRepository;
-use App\Repositories\FlightRepository;
 use PHPUnit\Framework\TestCase;
 
 
