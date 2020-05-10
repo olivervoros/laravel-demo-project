@@ -3,25 +3,38 @@
 
 namespace App;
 
+use App\Repositories\CrewRepository;
+
 class Crew
 {
     private $name;
     private $position;
     private $availablePositions = ['pilot', 'cabincrew'];
+    private $repo;
 
     /**
      * Crew constructor.
-     * @param $name
-     * @param $position
+     * @param CrewRepository $repo
+     * @param string $name
+     * @param string $position
      * @throws \Exception
      */
-    public function __construct(string $name, string $position)
+    public function __construct(CrewRepository $repo = null, string $name = '', string $position= '')
     {
         if(!in_array(strtolower($position), $this->availablePositions)) {
             throw new \Exception("Invalid Crew Type...");
         }
         $this->name = $name;
         $this->position = strtolower($position);
+        $this->repo = $repo;
+
+        $this->repo->saveCrew(['name' => $name, 'position' => $position]);
+
+    }
+
+    public function flights()
+    {
+        return $this->belongsToMany('App\Flight');
     }
 
     /**

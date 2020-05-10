@@ -12,7 +12,9 @@ class CrewTest extends TestCase
     protected $crew;
 
     public function setUp():void {
-        $this->crew = new Crew("Oliver", "pilot");
+        $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
+        $dummyCrewRepo = $repoProphecy->reveal();
+        $this->crew = new Crew($dummyCrewRepo,"Oliver", "pilot");
     }
 
     /** @test */
@@ -31,7 +33,9 @@ class CrewTest extends TestCase
     public function invalid_crew_type_throws_an_exception()
     {
         $this->expectException("\Exception");
-        new Crew("John", "Gardener");
+        $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
+        $dummyCrewRepo = $repoProphecy->reveal();
+        new Crew($dummyCrewRepo,"John", "Gardener");
 
     }
 

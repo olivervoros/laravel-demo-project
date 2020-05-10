@@ -21,7 +21,7 @@ class FishingCompetitionTest extends TestCase {
     }
 
     /** @test */
-    public function negative_fishing_competition_limit_returns_an_exception() {
+    public function negative_fishermen_registration_limit_returns_an_exception() {
 
         $this->expectException("App\FishingCompetition\Exceptions\ZeroOrNegativeFishermanLimitSetException");
 
@@ -33,7 +33,7 @@ class FishingCompetitionTest extends TestCase {
     }
 
     /** @test */
-    public function zero_fishing_competition_limit_returns_an_exception() {
+    public function zero_fishermen_registration_limit_returns_an_exception() {
 
         $this->expectException("App\FishingCompetition\Exceptions\ZeroOrNegativeFishermanLimitSetException");
 
@@ -45,7 +45,7 @@ class FishingCompetitionTest extends TestCase {
     }
 
     /** @test */
-    public function higher_than_maximum_fishing_competition_limit_returns_an_exception() {
+    public function higher_than_maximum_fishermen_registration_limit_returns_an_exception() {
 
         $this->expectException("App\FishingCompetition\Exceptions\MaximumFishermenNumberExceededException");
 
@@ -93,7 +93,7 @@ class FishingCompetitionTest extends TestCase {
     }
 
     /** @test */
-   public function the_number_of_times_the_save_mehjod_is_called_when_two_fishermen_register_with_spy() {
+   public function the_save_method_is_called_when_a_new_fisherman_registers() {
 
        $dbProphecy = $this->prophesize(Db::class);
        $dummyDb = $dbProphecy->reveal();
@@ -111,16 +111,23 @@ class FishingCompetitionTest extends TestCase {
    }
 
    /** @test */
-    public function after_running_the_competition_we_have_a_result()
+    public function after_running_the_competition_we_have_a_valid_array_result()
     {
-        $result = $this->runCompetition();
+        $competition = $this->getCompetition();
+        $result = $competition->runCompetition();
+
         $this->assertIsArray($result);
+        $this->assertNotEmpty($result);
+        $this->assertObjectHasAttribute('name', $result[0]);
+        $this->assertObjectHasAttribute('email', $result[0]);
+        $this->assertObjectHasAttribute('score', $result[0]);
     }
 
     /** @test */
     public function after_running_the_competition_all_fishermen_has_the_score_between_one_and_hundred()
     {
-        $result = $this->runCompetition();
+        $competition = $this->getCompetition();
+        $result = $competition->runCompetition();
         foreach($result as $res) {
             $this->assertGreaterThan(0, $res->getScore());
             $this->assertLessThan(101, $res->getScore());
@@ -151,14 +158,23 @@ class FishingCompetitionTest extends TestCase {
 
     }
 
+    /** @test */
+    public function cannot_run_competition_twice()
+    {
+        $this->expectException("App\FishingCompetition\Exceptions\CompetitionIsFinishedException");
+
+        $competiton = $this->getCompetition();
+        $competiton->runCompetition();
+        $competiton->runCompetition();
+    }
+
     /**
      * @dataProvider fishermanDataProvider
      * /** @test
      * @param Fisherman $fisherman
      * @throws \Exception
      */
-    public function number_of_times_save_is_called_when_four_fishermen_register(Fisherman $fisherman) {
-
+    public function save_method_is_called_when_a_new_fisherman_registers_using_data_provider(Fisherman $fisherman) {
 
         $dbProphecy = $this->prophesize(Db::class);
         $dummyDb = $dbProphecy->reveal();
@@ -173,10 +189,8 @@ class FishingCompetitionTest extends TestCase {
             return true;
         });
 
+        $dbProphecy->saveRecords(Argument::type(Fisherman::class))->shouldBeCalledTimes(1); // MOCK
         $competition->addFisherman($fisherman);
-
-        $dbProphecy->saveRecords($fisherman)->shouldHaveBeenCalled(); // SPY
-
     }
 
     public function fishermanDataProvider() {
@@ -188,7 +202,7 @@ class FishingCompetitionTest extends TestCase {
         ];
     }
 
-    private function runCompetition() {
+    private function getCompetition() {
         $dbProphecy = $this->prophesize(Db::class);
         $dummyDb = $dbProphecy->reveal();
 
@@ -201,7 +215,7 @@ class FishingCompetitionTest extends TestCase {
         $competition->addFisherman($fisherman2);
         $competition->addFisherman($fisherman3);
 
-        return $competition->runCompetition();
+        return $competition;
     }
 
 }

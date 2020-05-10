@@ -2,16 +2,14 @@
 
 
 namespace App;
-use App\Crew;
+use App\Repositories\FlightRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
-class Flight
+class Flight extends Model
 {
-    private $flightNumber;
-    private $estimatedTimeOfDeparture;
-    private $estimatedTimeOfArrival;
-    private $departureAirport;
-    private $arrivalAirport;
+    private $flightData = [];
     private $crew = [];
+    private $repo;
 
     const NUMBER_OF_PILOTS_ON_FLIGHT = 2;
     const NUMBER_OF_CABIN_CREW_ON_FLIGHT = 4;
@@ -19,100 +17,43 @@ class Flight
 
     /**
      * Flight constructor.
-     * @param $flightNumber
-     * @param $estimatedTimeOfDeparture
-     * @param $estimatedTimeOfArrival
-     * @param $departureAirport
-     * @param $arrivalAirport
+     * @param FlightRepositoryInterface $repo
+     * @param array $flightData
      */
-    public function __construct(string $flightNumber, string $estimatedTimeOfDeparture, string $estimatedTimeOfArrival, string $departureAirport, string $arrivalAirport)
+    public function __construct(FlightRepositoryInterface $repo = null, $flightData = [])
     {
-        $this->flightNumber = $flightNumber;
-        $this->estimatedTimeOfDeparture = $estimatedTimeOfDeparture;
-        $this->estimatedTimeOfArrival = $estimatedTimeOfArrival;
-        $this->departureAirport = $departureAirport;
-        $this->arrivalAirport = $arrivalAirport;
-    }
+        $this->flightData['flightNumber'] = $flightData[0];
+        $this->flightData['estimatedTimeOfDeparture'] = $flightData[1] ?? '';
+        $this->flightData['estimatedTimeOfArrival'] = $flightData[2] ?? '';
+        $this->flightData['departureAirport'] = $flightData[3] ?? '';
+        $this->flightData['arrivalAirport'] = $flightData[4] ?? '';
+        $this->flightData['delay'] = $flightData[5] ?? 0;
+        $this->repo = $repo ?? null;
 
-
-    /**
-     * @return string
-     */
-    public function getFlightNumber(): string
-    {
-        return $this->flightNumber;
+        if(!empty($this->repo) AND !empty($this->flightData)) {
+            return $this->repo->saveFlight($this->flightData);
+        }
     }
 
     /**
-     * @param string $flightNumber
+     * @return array
      */
-    public function setFlightNumber(string $flightNumber): void
+    public function getFlightData(): array
     {
-        $this->flightNumber = $flightNumber;
+        return $this->flightData;
     }
 
     /**
-     * @return string
+     * @param array $flightData
      */
-    public function getEstimatedTimeOfDeparture(): string
+    public function setFlightData(array $flightData): void
     {
-        return $this->estimatedTimeOfDeparture;
+        $this->flightData = $flightData;
     }
 
-    /**
-     * @param string $estimatedTimeOfDeparture
-     */
-    public function setEstimatedTimeOfDeparture(string $estimatedTimeOfDeparture): void
+    public function crews()
     {
-        $this->estimatedTimeOfDeparture = $estimatedTimeOfDeparture;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEstimatedTimeOfArrival(): string
-    {
-        return $this->estimatedTimeOfArrival;
-    }
-
-    /**
-     * @param string $estimatedTimeOfArrival
-     */
-    public function setEstimatedTimeOfArrival(string $estimatedTimeOfArrival): void
-    {
-        $this->estimatedTimeOfArrival = $estimatedTimeOfArrival;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDepartureAirport(): string
-    {
-        return $this->departureAirport;
-    }
-
-    /**
-     * @param string $departureAirport
-     */
-    public function setDepartureAirport(string $departureAirport): void
-    {
-        $this->departureAirport = $departureAirport;
-    }
-
-    /**
-     * @return string
-     */
-    public function getArrivalAirport(): string
-    {
-        return $this->arrivalAirport;
-    }
-
-    /**
-     * @param string $arrivalAirport
-     */
-    public function setArrivalAirport(string $arrivalAirport): void
-    {
-        $this->arrivalAirport = $arrivalAirport;
+        return $this->belongsToMany('App\Crew');
     }
 
     /**
@@ -131,6 +72,8 @@ class Flight
     {
         $this->validateFlightCrew($crew);
         $this->crew[] = $crew;
+
+        //return $this->repo->addCrew($crew);
     }
 
     protected function getCrewOnFlight() {
