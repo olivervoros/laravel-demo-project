@@ -9,23 +9,26 @@ use PHPUnit\Framework\TestCase;
 class CrewTest extends TestCase
 {
 
-    protected $crew;
+    private $crew;
+    private $dummyRepo;
 
     public function setUp():void {
         $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
-        $dummyCrewRepo = $repoProphecy->reveal();
-        $this->crew = new Crew($dummyCrewRepo,"Oliver", "pilot");
+        $this->dummyRepo = $repoProphecy->reveal();
+        $this->crew = new Crew();
     }
 
     /** @test */
     public function a_crew_has_a_name()
     {
+        $this->crew->saveCrew($this->dummyRepo,"Oliver", "pilot");
         $this->assertEquals('Oliver', $this->crew->getName());
     }
 
     /** @test */
     public function a_crew_has_a_position()
     {
+        $this->crew->saveCrew($this->dummyRepo,"Oliver", "pilot");
         $this->assertEquals('pilot', $this->crew->getPosition());
     }
 
@@ -33,9 +36,8 @@ class CrewTest extends TestCase
     public function invalid_crew_type_throws_an_exception()
     {
         $this->expectException("\Exception");
-        $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
-        $dummyCrewRepo = $repoProphecy->reveal();
-        new Crew($dummyCrewRepo,"John", "Gardener");
+        $crew = new Crew();
+        $crew->saveCrew($this->dummyRepo,"John", "Gardener");
 
     }
 

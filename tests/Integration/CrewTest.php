@@ -45,7 +45,8 @@ class CrewTest extends TestCase
     /** @test */
     public function it_saves_a_new_crew_in_the_database_and_then_we_have_seventeen_crews()
     {
-        new Crew($this->repo, 'Test Pilot', 'pilot');
+        $crew = new Crew();
+        $crew->saveCrew($this->repo, 'Test Pilot', 'pilot');
 
         $result = $this->repo->getCrewByName('Test Pilot');
         $this->assertNotEmpty($result);

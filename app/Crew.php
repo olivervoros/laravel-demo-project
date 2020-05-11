@@ -19,7 +19,7 @@ class Crew
      * @param string $position
      * @throws \Exception
      */
-    public function __construct(CrewRepository $repo = null, string $name = '', string $position= '')
+    public function saveCrew(CrewRepository $repo = null, string $name = '', string $position= '')
     {
         if(!in_array(strtolower($position), $this->availablePositions)) {
             throw new \Exception("Invalid Crew Type...");
