@@ -35,7 +35,7 @@ class CrewTest extends TestCase
     /** @test */
     public function invalid_crew_type_throws_an_exception()
     {
-        $this->expectException("\Exception");
+        $this->expectException("App\Exceptions\InvalidCrewTypeException");
         $crew = new Crew();
         $crew->saveCrew($this->dummyRepo,"John", "Gardener");
 

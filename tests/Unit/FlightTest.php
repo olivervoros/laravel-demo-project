@@ -7,7 +7,6 @@ use App\Crew;
 use App\Flight;
 use PHPUnit\Framework\TestCase;
 
-
 class FlightTest extends TestCase
 {
     private $flight;
@@ -82,7 +81,7 @@ class FlightTest extends TestCase
      */
     public function adding_three_pilots_to_a_flight_throws_an_exception()
     {
-        $this->expectException("\Exception");
+        $this->expectException("App\Exceptions\NumberOfPilotsExceededException");
 
         $crew1 = new Crew();
         $crew1->saveCrew($this->dummyCrewRepo, "Brian", "Pilot");
@@ -103,7 +102,7 @@ class FlightTest extends TestCase
      */
     public function adding_five_cabin_crew_to_a_flight_throws_an_exception()
     {
-        $this->expectException("\Exception");
+        $this->expectException("App\Exceptions\NumberOfCabinCrewExceededException");
 
         $crew1 = new Crew();
         $crew1->saveCrew($this->dummyCrewRepo,"Suzy", "cabincrew");

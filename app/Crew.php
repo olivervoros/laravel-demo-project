@@ -3,9 +3,11 @@
 
 namespace App;
 
+use App\Exceptions\InvalidCrewTypeException;
 use App\Repositories\CrewRepository;
+use Illuminate\Database\Eloquent\Model;
 
-class Crew
+class Crew extends Model
 {
     private $name;
     private $position;
@@ -17,18 +19,19 @@ class Crew
      * @param CrewRepository $repo
      * @param string $name
      * @param string $position
-     * @throws \Exception
+     * @return int
+     * @throws InvalidCrewTypeException
      */
     public function saveCrew(CrewRepository $repo = null, string $name = '', string $position= '')
     {
         if(!in_array(strtolower($position), $this->availablePositions)) {
-            throw new \Exception("Invalid Crew Type...");
+            throw new InvalidCrewTypeException("Invalid Crew Type...");
         }
         $this->name = $name;
         $this->position = strtolower($position);
         $this->repo = $repo;
 
-        $this->repo->saveCrew(['name' => $name, 'position' => $position]);
+        return $this->repo->saveCrew(['name' => $name, 'position' => $position]);
 
     }
 

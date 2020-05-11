@@ -2,6 +2,8 @@
 
 
 namespace App;
+use App\Exceptions\NumberOfCabinCrewExceededException;
+use App\Exceptions\NumberOfPilotsExceededException;
 use App\Repositories\FlightRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -101,11 +103,11 @@ class Flight extends Model
         $crewOnFlight = $this->getCrewOnFlight();
 
         if($crew->getPosition()==='pilot' && $crewOnFlight['numPilots'] === self::NUMBER_OF_PILOTS_ON_FLIGHT) {
-            throw new \Exception("No more pilots needed...");
+            throw new NumberOfPilotsExceededException("No more pilots needed...");
         }
 
         if($crew->getPosition()==='cabincrew' && $crewOnFlight['numCabinCrews'] === self::NUMBER_OF_CABIN_CREW_ON_FLIGHT) {
-            throw new \Exception("No more cabin crew needed...");
+            throw new NumberOfCabinCrewExceededException("No more cabin crew needed...");
         }
 
         return true;
