@@ -15,7 +15,6 @@ class CompanySeeder extends Seeder
     public function run()
     {
         $data = $this->fillUpArray();
-        ///ddd($data);
         DB::table('companies')->insert($data);
     }
 
