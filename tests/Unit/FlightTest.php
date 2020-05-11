@@ -10,50 +10,56 @@ use PHPUnit\Framework\TestCase;
 
 class FlightTest extends TestCase
 {
-    protected $flight;
+    private $flight;
+    private $dummyRepo;
 
     public function setUp():void {
 
         parent::setUp();
 
         $repoProphecy = $this->prophesize('\App\Repositories\FlightRepository');
-        $dummyFlightRepo = $repoProphecy->reveal();
-
-        $flightData = ['BA870', '10:30', '12:00', 'Budapest', 'London'];
-        $this->flight = new Flight($dummyFlightRepo, $flightData);
+        $this->dummyRepo = $repoProphecy->reveal();
+        $this->flight = new Flight();
     }
 
     /** @test */
     public function a_flight_has_a_number()
     {
+        $this->flight->setFlightData($this->dummyRepo, ['BA870', '10:30', '12:00', 'Budapest', 'London']);
         $this->assertEquals('BA870', $this->flight->getFlightData()['flightNumber']);
     }
 
     /** @test */
     public function a_flight_has_an_estimated_departure_time()
     {
+        $this->flight->setFlightData($this->dummyRepo, ['BA870', '10:30', '12:00', 'Budapest', 'London']);
         $this->assertEquals('10:30', $this->flight->getFlightData()['estimatedTimeOfDeparture']);
     }
 
     /** @test */
     public function a_flight_has_an_estimated_arrival_time()
     {
+        $this->flight->setFlightData($this->dummyRepo, ['BA870', '10:30', '12:00', 'Budapest', 'London']);
         $this->assertEquals('12:00', $this->flight->getFlightData()['estimatedTimeOfArrival']);
     }
 
     /** @test */
     public function a_flight_has_a_departure_city()
     {
+        $this->flight->setFlightData($this->dummyRepo, ['BA870', '10:30', '12:00', 'Budapest', 'London']);
         $this->assertEquals('Budapest', $this->flight->getFlightData()['departureAirport']);
     }
 
     /** @test */
     public function a_flight_has_an_arrival_city()
     {
+        $this->flight->setFlightData($this->dummyRepo, ['BA870', '10:30', '12:00', 'Budapest', 'London']);
         $this->assertEquals('London', $this->flight->getFlightData()['arrivalAirport']);
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function crew_can_be_added_to_a_flight()
     {
         $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
@@ -67,7 +73,9 @@ class FlightTest extends TestCase
         $this->assertCount(2, $this->flight->getTotalCrew());
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function adding_three_pilots_to_a_flight_throws_an_exception()
     {
         $this->expectException("\Exception");
@@ -83,7 +91,9 @@ class FlightTest extends TestCase
         $this->flight->addCrew($crew3);
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function adding_five_cabin_crew_to_a_flight_throws_an_exception()
     {
         $this->expectException("\Exception");
@@ -103,7 +113,9 @@ class FlightTest extends TestCase
         $this->flight->addCrew($crew5);
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function the_flight_is_complete_with_two_pilots_and_four_cabin_crew()
     {
         $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
@@ -125,7 +137,9 @@ class FlightTest extends TestCase
         $this->assertTrue($this->flight->isComplete());
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function the_flight_is_incomplete_with_one_pilot_and_three_cabin_crew()
     {
         $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
