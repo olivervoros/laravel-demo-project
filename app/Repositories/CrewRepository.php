@@ -18,7 +18,7 @@ class CrewRepository implements CrewRepositoryInterface
     {
         if(!empty($crew)) {
             $insertedId =  DB::table('crews')->insertGetId($crew);
-            return Crew::find($insertedId)->get()->first();
+            return Crew::find($insertedId);
         }
     }
 
