@@ -64,17 +64,17 @@ class CrewTest extends TestCase
      */
     public function crew_can_be_assigned_to_a_flight()
     {
-
         $flight = new Flight();
-        $flightNumber = $flight->setFlightData($this->flightRepo, ['Test', '11:00', '20:00', 'San Francisco', 'Los Angeles', 40]);
-        $savedFlight = Flight::find($flightNumber)->first();
+        $flightId = $flight->setFlightData($this->flightRepo, ['Test', '11:00', '20:00', 'San Francisco', 'Los Angeles', 40]);
+        $savedFlight = Flight::find($flightId)->first();
 
         $crew1 = new Crew();
-        $crew1Id = $crew1->saveCrew($this->crewRepo, "Brian", "Pilot");
+        $crew1 = $crew1->saveCrew($this->crewRepo, "Brian", "Pilot");
         $crew2 = new Crew();
-        $crew2Id = $crew2->saveCrew($this->crewRepo,"James", "Pilot");
+        $crew2 = $crew2->saveCrew($this->crewRepo,"James", "Pilot");
 
-        $savedFlight->crews()->attach([$crew1Id, $crew2Id]);
+        $flight->assignCrewToFlight($this->flightRepo, $crew1, $savedFlight);
+        $flight->assignCrewToFlight($this->flightRepo, $crew2, $savedFlight);
         $crewOnFlight = $savedFlight->crews()->get()->toArray();
 
         $this->assertCount(2, $crewOnFlight);
@@ -86,25 +86,30 @@ class CrewTest extends TestCase
     public function crew_can_be_assigned_and_then_removed_from_a_flight()
     {
         $flight = new Flight();
-        $flightNumber = $flight->setFlightData($this->flightRepo, ['Another Test', '19:00', '08:00', 'Singapore', 'Bangkok', 20]);
-        $savedFlight = Flight::find($flightNumber)->first();
+        $flightId = $flight->setFlightData($this->flightRepo, ['Another Test', '19:00', '08:00', 'Singapore', 'Bangkok', 20]);
+        $savedFlight = Flight::find($flightId)->first();
 
         $crew1 = new Crew();
-        $crew1Id = $crew1->saveCrew($this->crewRepo, "Brian", "Pilot");
+        $crew1 = $crew1->saveCrew($this->crewRepo, "Brian", "Pilot");
         $crew2 = new Crew();
-        $crew2Id = $crew2->saveCrew($this->crewRepo,"James", "Pilot");
+        $crew2 = $crew2->saveCrew($this->crewRepo,"James", "Pilot");
         $crew3 = new Crew();
-        $crew3Id = $crew3->saveCrew($this->crewRepo,"Samantha", "cabincrew");
+        $crew3 = $crew3->saveCrew($this->crewRepo,"Samantha", "cabincrew");
 
-        $savedFlight->crews()->attach([$crew1Id, $crew2Id, $crew3Id]);
+        $flight->assignCrewToFlight($this->flightRepo, $crew1, $savedFlight);
+        $flight->assignCrewToFlight($this->flightRepo, $crew2, $savedFlight);
+        $flight->assignCrewToFlight($this->flightRepo, $crew3, $savedFlight);
+
         $this->assertCount(3, $savedFlight->crews()->get()->toArray());
-
-        $savedFlight->crews()->detach([$crew2Id]);
+        /*
+        $savedFlight->crews()->detach($crew2);
         $crewOnFlight = $savedFlight->crews()->get()->toArray();
 
         $this->assertCount(2, $crewOnFlight);
         $this->assertEqualsIgnoringCase('pilot', $crewOnFlight[0]['position']);
         $this->assertEquals('cabincrew', $crewOnFlight[1]['position']);
+        */
+
     }
 
 }

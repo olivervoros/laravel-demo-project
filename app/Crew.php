@@ -12,14 +12,13 @@ class Crew extends Model
     private $name;
     private $position;
     private $availablePositions = ['pilot', 'cabincrew'];
-    private $repo;
 
     /**
      * Crew constructor.
      * @param CrewRepository $repo
      * @param string $name
      * @param string $position
-     * @return int
+     * @return Crew
      * @throws InvalidCrewTypeException
      */
     public function saveCrew(CrewRepository $repo = null, string $name = '', string $position= '')
@@ -29,9 +28,9 @@ class Crew extends Model
         }
         $this->name = $name;
         $this->position = strtolower($position);
-        $this->repo = $repo;
 
-        return $this->repo->saveCrew(['name' => $name, 'position' => $position]);
+        $result = ($repo->saveCrew(['name' => $name, 'position' => $position]));
+        return is_null($result) ? $this : $result;
 
     }
 

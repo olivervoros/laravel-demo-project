@@ -3,6 +3,8 @@
 
 namespace App\Repositories;
 
+use App\Crew;
+use App\Flight;
 use Illuminate\Support\Facades\DB;
 
 class FlightRepository implements FlightRepositoryInterface
@@ -14,9 +16,42 @@ class FlightRepository implements FlightRepositoryInterface
 
     public function saveFlight(array $flightData)
     {
-        if(!empty($flightData['flightNumber'])) {
-           return DB::table('flights')->insertGetId($flightData);
-        }
+        $insertedId =  DB::table('flights')->insertGetId($flightData);
+        return Flight::find($insertedId);
+    }
+
+    public function modifyFlightData(int $flightId, array $flightData)
+    {
+        $arrayToUpdate = [
+            'flightNumber' => $flightData['flightNumber'],
+            'estimatedTimeOfDeparture' => $flightData['estimatedTimeOfDeparture'],
+            'estimatedTimeOfArrival' => $flightData['estimatedTimeOfArrival'],
+            'departureAirport' =>  $flightData['departureAirport'],
+            'arrivalAirport' => $flightData['arrivalAirport'],
+            'delay' => $flightData['delay']];
+
+        DB::table('flights')->where('id', $flightId)->update($arrayToUpdate);
+        return Flight::find($flightId);
+    }
+
+    public function deleteFlight(int $flightId)
+    {
+        DB::table('flights')->where('id', $flightId)->delete();
+    }
+
+    public function getFlightByFlightNumber($flightNumber)
+    {
+       return DB::table('flights')->where('flightNumber', $flightNumber)->get()->first();
+    }
+
+    public function assignCrewToFlight(Crew $crew, Flight $flight)
+    {
+        $flight->crews()->attach($crew);
+    }
+
+    public function removeCrewFromFlight(Crew $crew, Flight $flight)
+    {
+        $flight->crews()->detach($crew);
     }
 
     public function getFlightById(int $flightId)
@@ -24,7 +59,7 @@ class FlightRepository implements FlightRepositoryInterface
         return DB::select('select * from flights where id = ?', [$flightId]);
     }
 
-    public function getFlightByFlightNumber(string $flightNumber)
+    public function TODOgetFlightByFlightNumber(string $flightNumber)
     {
         return DB::select('select * from flights where flightNumber = ?', [$flightNumber]);
     }

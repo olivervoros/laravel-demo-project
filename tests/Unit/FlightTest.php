@@ -17,10 +17,10 @@ class FlightTest extends TestCase
 
         parent::setUp();
 
-        $repoProphecy = $this->prophesize('\App\Repositories\FlightRepository');
-        $this->dummyFlightRepo = $repoProphecy->reveal();
-        $repoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
-        $this->dummyCrewRepo = $repoProphecy->reveal();
+        $flightRepoProphecy = $this->prophesize('\App\Repositories\FlightRepository');
+        $this->dummyFlightRepo = $flightRepoProphecy->reveal();
+        $crewRepoProphecy = $this->prophesize('\App\Repositories\CrewRepository');
+        $this->dummyCrewRepo = $crewRepoProphecy->reveal();
         $this->flight = new Flight();
     }
 
@@ -64,14 +64,15 @@ class FlightTest extends TestCase
      */
     public function crew_can_be_added_to_a_flight()
     {
+        $savedFlight = $this->flight->setFlightData($this->dummyFlightRepo, ['XX870', '10:30', '12:00', 'Budapest', 'London']);
 
         $crew1 = new Crew();
-        $crew1->saveCrew($this->dummyCrewRepo, "Brian", "Pilot");
+        $crew1 = $crew1->saveCrew($this->dummyCrewRepo, "Brian", "Pilot");
         $crew2 = new Crew();
-        $crew2->saveCrew($this->dummyCrewRepo,"James", "Pilot");
+        $crew2 = $crew2->saveCrew($this->dummyCrewRepo,"James", "Pilot");
 
-        $this->flight->addCrew($crew1);
-        $this->flight->addCrew($crew2);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew1, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew2, $savedFlight);
 
         $this->assertCount(2, $this->flight->getTotalCrew());
     }
@@ -83,18 +84,20 @@ class FlightTest extends TestCase
     {
         $this->expectException("App\Exceptions\NumberOfPilotsExceededException");
 
+        $savedFlight = $this->flight->setFlightData($this->dummyFlightRepo, ['YY870', '10:30', '12:00', 'Budapest', 'London']);
+
         $crew1 = new Crew();
-        $crew1->saveCrew($this->dummyCrewRepo, "Brian", "Pilot");
+        $crew1 = $crewId1 = $crew1->saveCrew($this->dummyCrewRepo, "Brian", "Pilot");
 
         $crew2 = new Crew();
-        $crew2->saveCrew($this->dummyCrewRepo, "James", "Pilot");
+        $crew2 = $crewId2 = $crew2->saveCrew($this->dummyCrewRepo, "James", "Pilot");
 
         $crew3 = new Crew();
-        $crew3->saveCrew($this->dummyCrewRepo, "Thomas", "Pilot");
+        $crew3 = $crewId3 = $crew3->saveCrew($this->dummyCrewRepo, "Thomas", "Pilot");
 
-        $this->flight->addCrew($crew1);
-        $this->flight->addCrew($crew2);
-        $this->flight->addCrew($crew3);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew1, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew2, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew3, $savedFlight);
     }
 
     /** @test
@@ -104,26 +107,28 @@ class FlightTest extends TestCase
     {
         $this->expectException("App\Exceptions\NumberOfCabinCrewExceededException");
 
+        $savedFlight = $this->flight->setFlightData($this->dummyFlightRepo, ['ZZ870', '10:30', '12:00', 'Budapest', 'London']);
+
         $crew1 = new Crew();
-        $crew1->saveCrew($this->dummyCrewRepo,"Suzy", "cabincrew");
+        $crew1 = $crew1->saveCrew($this->dummyCrewRepo,"Suzy", "cabincrew");
 
         $crew2 = new Crew();
-        $crew2->saveCrew($this->dummyCrewRepo,"Anita", "cabincrew");
+        $crew2 = $crew2->saveCrew($this->dummyCrewRepo,"Anita", "cabincrew");
 
         $crew3 = new Crew();
-        $crew3->saveCrew($this->dummyCrewRepo,"Brigitte", "cabincrew");
+        $crew3 = $crew3->saveCrew($this->dummyCrewRepo,"Brigitte", "cabincrew");
 
         $crew4 = new Crew();
-        $crew4->saveCrew($this->dummyCrewRepo,"Jennifer", "cabincrew");
+        $crew4 = $crew4->saveCrew($this->dummyCrewRepo,"Jennifer", "cabincrew");
 
         $crew5 = new Crew();
-        $crew5->saveCrew($this->dummyCrewRepo, "Jessica", "cabincrew");
+        $crew5 = $crew5->saveCrew($this->dummyCrewRepo, "Jessica", "cabincrew");
 
-        $this->flight->addCrew($crew1);
-        $this->flight->addCrew($crew2);
-        $this->flight->addCrew($crew3);
-        $this->flight->addCrew($crew4);
-        $this->flight->addCrew($crew5);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew1, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew2, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew3, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew4, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew5, $savedFlight);
     }
 
     /** @test
@@ -131,30 +136,33 @@ class FlightTest extends TestCase
      */
     public function the_flight_is_complete_with_two_pilots_and_four_cabin_crew()
     {
+        $savedFlight = $this->flight->setFlightData($this->dummyFlightRepo, ['ABC870', '10:30', '12:00', 'Budapest', 'London']);
+
         $crew1 = new Crew();
-        $crew1->saveCrew($this->dummyCrewRepo,"John", "pilot");
+        $crew1 = $crew1->saveCrew($this->dummyCrewRepo,"John", "pilot");
 
         $crew2 = new Crew();
-        $crew2->saveCrew($this->dummyCrewRepo,"Peter", "pilot");
+        $crew2 = $crew2->saveCrew($this->dummyCrewRepo,"Peter", "pilot");
 
         $crew3 = new Crew();
-        $crew3->saveCrew($this->dummyCrewRepo,"Anita", "cabincrew");
+        $crew3 = $crew3->saveCrew($this->dummyCrewRepo,"Anita", "cabincrew");
 
         $crew4 = new Crew();
-        $crew4->saveCrew($this->dummyCrewRepo,"Brigitte", "cabincrew");
+        $crew4 = $crew4->saveCrew($this->dummyCrewRepo,"Brigitte", "cabincrew");
 
         $crew5 = new Crew();
-        $crew5->saveCrew($this->dummyCrewRepo,"Jennifer", "cabincrew");
+        $crew5 = $crew5->saveCrew($this->dummyCrewRepo,"Jennifer", "cabincrew");
 
         $crew6 = new Crew();
-        $crew6->saveCrew($this->dummyCrewRepo,"Jessica", "cabincrew");
+        $crew6 = $crew6->saveCrew($this->dummyCrewRepo,"Jessica", "cabincrew");
 
-        $this->flight->addCrew($crew1);
-        $this->flight->addCrew($crew2);
-        $this->flight->addCrew($crew3);
-        $this->flight->addCrew($crew4);
-        $this->flight->addCrew($crew5);
-        $this->flight->addCrew($crew6);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew1, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew2, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew3, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew4, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew5, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew6, $savedFlight);
+
 
         $this->assertTrue($this->flight->isComplete());
     }
@@ -164,22 +172,24 @@ class FlightTest extends TestCase
      */
     public function the_flight_is_incomplete_with_one_pilot_and_three_cabin_crew()
     {
+        $savedFlight = $this->flight->setFlightData($this->dummyFlightRepo, ['DEF870', '10:30', '12:00', 'Budapest', 'London']);
+
         $crew1 = new Crew();
-        $crew1->saveCrew($this->dummyCrewRepo,"John", "pilot");
+        $crew1 = $crew1->saveCrew($this->dummyCrewRepo,"John", "pilot");
 
         $crew2 = new Crew();
-        $crew2->saveCrew($this->dummyCrewRepo,"Brigitte", "cabincrew");
+        $crew2 = $crew2->saveCrew($this->dummyCrewRepo,"Brigitte", "cabincrew");
 
         $crew3 = new Crew();
-        $crew3->saveCrew($this->dummyCrewRepo,"Jennifer", "cabincrew");
+        $crew3 = $crew3->saveCrew($this->dummyCrewRepo,"Jennifer", "cabincrew");
 
         $crew4 = new Crew();
-        $crew3->saveCrew($this->dummyCrewRepo,"Jessica", "cabincrew");
+        $crew4 = $crew4->saveCrew($this->dummyCrewRepo,"Jessica", "cabincrew");
 
-        $this->flight->addCrew($crew1);
-        $this->flight->addCrew($crew2);
-        $this->flight->addCrew($crew3);
-        $this->flight->addCrew($crew4);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew1, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew2, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew3, $savedFlight);
+        $this->flight->assignCrewToFlight($this->dummyFlightRepo, $crew4, $savedFlight);
 
         $this->assertFalse($this->flight->isComplete());
     }

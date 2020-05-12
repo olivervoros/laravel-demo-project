@@ -25,30 +25,16 @@ class FlightTest extends TestCase
     }
 
     /** @test */
-    public function it_fetches_delayed_flights_using_repo()
+    public function it_fetches_delayed_flights()
     {
         $delayedFlights = $this->repo->getDelayedFlights();
         $this->assertCount(2, $delayedFlights);
     }
 
     /** @test */
-    public function it_fetches_delayed_flights_using_eloquent()
-    {
-        $delayedFlights = Flight::Delayed();
-        $this->assertCount(2, $delayedFlights);
-    }
-
-    /** @test */
-    public function it_fetches_on_time_flights_using_repo()
+    public function it_fetches_on_time_flights()
     {
         $onTimedFlights = $this->repo->getOnTimeFlights();
-        $this->assertCount(3, $onTimedFlights);
-    }
-
-    /** @test */
-    public function it_fetches_on_time_with_eloquent()
-    {
-        $onTimedFlights = Flight::OnTime();
         $this->assertCount(3, $onTimedFlights);
     }
 
@@ -56,13 +42,6 @@ class FlightTest extends TestCase
     public function it_fetches_all_the_five_flights()
     {
         $allFlights = $this->repo->getAll();
-        $this->assertCount(5, $allFlights);
-    }
-
-    /** @test */
-    public function it_fetches_all_the_five_flights_using_eloquent()
-    {
-        $allFlights = Flight::all();
         $this->assertCount(5, $allFlights);
     }
 
@@ -79,28 +58,25 @@ class FlightTest extends TestCase
     }
 
     /** @test */
-    public function can_save_a_flight_and_then_modify_it_with_eloquent()
+    public function can_save_a_flight_and_then_modify_it()
     {
-        $flightNumber = $this->flight->setFlightData($this->repo, ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
-        $savedFlight = Flight::find($flightNumber)->first();
-        $savedFlight->flightNumber = "Modified";
-        $savedFlight->save();
-        $modifiedFlight = Flight::find($flightNumber)->first();
+        $flight = new Flight();
+        $savedFlight = $flight->setFlightData($this->repo, ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
+        $modifiedFlight = $savedFlight->modifyFlightData($this->repo, $savedFlight->id, ['Modified', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
+
         $this->assertEquals("Modified", $modifiedFlight->flightNumber);
         $this->assertEquals("Frankfurt", $modifiedFlight->arrivalAirport);
         $this->assertEquals(0, $modifiedFlight->delay);
     }
 
     /** @test */
-    public function can_delete_a_flight_with_eloquent()
+    public function can_delete_a_flight()
     {
-        $firstFlight = Flight::orderBy('id', 'ASC')->first();
-        $firstFlight->delete();
+        $flight = new Flight();
+        $flightToDelete = $flight->getFlightByFlightNumber($this->repo,'WZZ235');
+        $this->flight->deleteFlight($this->repo, $flightToDelete->id);
 
-        $deletedFlight = Flight::find($firstFlight->id);
-        $this->assertNull($deletedFlight);
-
-        $allFlights = Flight::all();
+        $allFlights = $this->repo->getAll();
         $this->assertCount(4, $allFlights);
     }
 
