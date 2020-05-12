@@ -26,7 +26,7 @@ class CrewTest extends TestCase
     }
 
     /** @test */
-    public function it_fetches_all_the_sixteen_cabin_crews()
+    public function it_fetches_all_the_sixteen_crews()
     {
         $allCrews = $this->crewRepo->getAll();
         $this->assertCount(16, $allCrews);
@@ -57,6 +57,32 @@ class CrewTest extends TestCase
 
         $allCrews = $this->crewRepo->getAll();
         $this->assertCount(17, $allCrews);
+    }
+
+    /** @test */
+    public function crew_can_be_modified()
+    {
+        $crew = new Crew();
+        $crew = $crew->saveCrew($this->crewRepo, 'Cabin Crew to Modify', 'cabincrew');
+        $modifiedCrew = $crew->modifyCrew($this->crewRepo, $crew, 'Modified Cabin Crew', 'cabincrew');
+
+        $this->assertEquals("Modified Cabin Crew", $modifiedCrew->name);
+        $this->assertEquals("cabincrew", $modifiedCrew->position);
+    }
+
+    /** @test */
+    public function crew_can_be_deleted()
+    {
+        $crew = new Crew();
+        $crewToDelete1 = $crew->getCrewByNameAndPosition($this->crewRepo,'Samantha', 'cabincrew');
+        $crewToDelete2 = $crew->getCrewByNameAndPosition($this->crewRepo,'Steve', 'pilot');
+
+        $crew->deleteCrew($this->crewRepo, $crewToDelete1->id);
+        $crew->deleteCrew($this->crewRepo, $crewToDelete2->id);
+
+        $allCrews = $this->crewRepo->getAll();
+        $this->assertCount(14, $allCrews);
+
     }
 
     /** @test

@@ -5,6 +5,7 @@ namespace App;
 
 use App\Exceptions\InvalidCrewTypeException;
 use App\Repositories\CrewRepository;
+use App\Repositories\CrewRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Crew extends Model
@@ -32,6 +33,30 @@ class Crew extends Model
         $result = ($repo->saveCrew(['name' => $name, 'position' => $position]));
         return is_null($result) ? $this : $result;
 
+    }
+
+    public function modifyCrew(CrewRepositoryInterface $repo, Crew $crew, string $name, string $position)
+    {
+        if(!in_array(strtolower($position), $this->availablePositions)) {
+            throw new InvalidCrewTypeException("Invalid Crew Type...");
+        }
+        $this->name = $name;
+        $this->position = strtolower($position);
+
+        $result = $repo->modifyCrew($crew, $name, $position);
+        return is_null($result) ? $this : $result;
+    }
+
+    public function deleteCrew(CrewRepositoryInterface $repo, int $crewId)
+    {
+        $result = $repo->deleteCrew($crewId);
+        return is_null($result) ? $this : $result;
+    }
+
+    public function getCrewByNameAndPosition(CrewRepositoryInterface $repo, string $name, string $position)
+    {
+        $result = $repo->getCrewByNameAndPosition($name, $position);
+        return is_null($result) ? $this : $result;
     }
 
     public function flights()

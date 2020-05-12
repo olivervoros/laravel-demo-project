@@ -7,7 +7,7 @@ use App\Crew;
 use App\Flight;
 use Illuminate\Support\Facades\DB;
 
-class FlightRepository implements FlightRepositoryInterface
+class FlightRepository implements FlightRepositoryInterface, FlightRepositoryInterface
 {
 
     public function getAll() {
@@ -57,11 +57,6 @@ class FlightRepository implements FlightRepositoryInterface
     public function getFlightById(int $flightId)
     {
         return DB::select('select * from flights where id = ?', [$flightId]);
-    }
-
-    public function TODOgetFlightByFlightNumber(string $flightNumber)
-    {
-        return DB::select('select * from flights where flightNumber = ?', [$flightNumber]);
     }
 
     public function getDelayedFlights() {

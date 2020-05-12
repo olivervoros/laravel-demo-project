@@ -7,7 +7,7 @@ use App\Crew;
 use Illuminate\Support\Facades\DB;
 
 
-class CrewRepository implements CrewRepositoryInterface
+class CrewRepository implements CrewRepositoryInterface, CrewRepositoryInterface
 {
 
     public function getAll() {
@@ -20,6 +20,22 @@ class CrewRepository implements CrewRepositoryInterface
             $insertedId =  DB::table('crews')->insertGetId($crew);
             return Crew::find($insertedId);
         }
+    }
+
+    public function modifyCrew(Crew $crew, $name, $position)
+    {
+        DB::table('crews')->where('id', $crew->id)->update(['name' => $name, 'position' => $position]);
+        return Crew::find($crew->id);
+    }
+
+    public function deleteCrew(int $crewId)
+    {
+        DB::table('crews')->where('id', $crewId)->delete();
+    }
+
+    public function getCrewByNameAndPosition(string $name, string $position)
+    {
+        return DB::table('crews')->where(['name' => $name, 'position' => $position])->get()->first();
     }
 
     public function getAllPilots() {
