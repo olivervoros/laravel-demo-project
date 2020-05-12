@@ -4,7 +4,7 @@
 namespace App;
 
 use App\Exceptions\InvalidCrewTypeException;
-use App\Repositories\CrewRepository;
+use App\Exceptions\MissingCrewDataException;
 use App\Repositories\CrewRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,27 +16,37 @@ class Crew extends Model
 
     /**
      * Crew constructor.
-     * @param CrewRepository $repo
+     * @param CrewRepositoryInterface $repo
      * @param string $name
      * @param string $position
      * @return Crew
      * @throws InvalidCrewTypeException
+     * @throws MissingCrewDataException
      */
-    public function saveCrew(CrewRepository $repo = null, string $name = '', string $position= '')
+    public function addCrew(CrewRepositoryInterface $repo, string $name, string $position)
     {
+        if(empty($name) OR empty($position)) {
+            throw new MissingCrewDataException("Missing Crew Data...");
+        }
+
         if(!in_array(strtolower($position), $this->availablePositions)) {
             throw new InvalidCrewTypeException("Invalid Crew Type...");
         }
+
         $this->name = $name;
         $this->position = strtolower($position);
 
-        $result = ($repo->saveCrew(['name' => $name, 'position' => $position]));
+        $result = ($repo->addCrew(['name' => $name, 'position' => $position]));
         return is_null($result) ? $this : $result;
 
     }
 
     public function modifyCrew(CrewRepositoryInterface $repo, Crew $crew, string $name, string $position)
     {
+        if(empty($name) OR empty($position)) {
+            throw new MissingCrewDataException("Missing Crew Data...");
+        }
+
         if(!in_array(strtolower($position), $this->availablePositions)) {
             throw new InvalidCrewTypeException("Invalid Crew Type...");
         }

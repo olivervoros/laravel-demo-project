@@ -48,7 +48,7 @@ class FlightTest extends TestCase
     /** @test */
     public function can_save_a_new_flight_in_the_database_and_after_we_will_have_a_total_of_six_flights() {
 
-        $this->flight->setFlightData($this->repo, ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
+        $this->flight->saveFlight($this->repo, ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
         $result = $this->repo->getFlightByFlightNumber('Test');
         $this->assertNotEmpty($result);
 
@@ -61,8 +61,8 @@ class FlightTest extends TestCase
     public function can_save_a_flight_and_then_modify_it()
     {
         $flight = new Flight();
-        $savedFlight = $flight->setFlightData($this->repo, ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
-        $modifiedFlight = $savedFlight->modifyFlightData($this->repo, $savedFlight->id, ['Modified', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
+        $savedFlight = $flight->saveFlight($this->repo, ['Test', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
+        $modifiedFlight = $savedFlight->modifyFlight($this->repo, $savedFlight->id, ['Modified', '11:00', '13:00', 'Barcelona', 'Frankfurt', 0]);
 
         $this->assertEquals("Modified", $modifiedFlight->flightNumber);
         $this->assertEquals("Frankfurt", $modifiedFlight->arrivalAirport);

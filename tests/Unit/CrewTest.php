@@ -21,14 +21,14 @@ class CrewTest extends TestCase
     /** @test */
     public function a_crew_has_a_name()
     {
-        $this->crew->saveCrew($this->dummyRepo,"Oliver", "pilot");
+        $this->crew->addCrew($this->dummyRepo,"Oliver", "pilot");
         $this->assertEquals('Oliver', $this->crew->getName());
     }
 
     /** @test */
     public function a_crew_has_a_position()
     {
-        $this->crew->saveCrew($this->dummyRepo,"Oliver", "pilot");
+        $this->crew->addCrew($this->dummyRepo,"Oliver", "pilot");
         $this->assertEquals('pilot', $this->crew->getPosition());
     }
 
@@ -37,7 +37,7 @@ class CrewTest extends TestCase
     {
         $this->expectException("App\Exceptions\InvalidCrewTypeException");
         $crew = new Crew();
-        $crew->saveCrew($this->dummyRepo,"John", "Gardener");
+        $crew->addCrew($this->dummyRepo,"John", "Gardener");
 
     }
 

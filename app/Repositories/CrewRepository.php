@@ -7,14 +7,14 @@ use App\Crew;
 use Illuminate\Support\Facades\DB;
 
 
-class CrewRepository implements CrewRepositoryInterface, CrewRepositoryInterface
+class CrewRepository implements CrewRepositoryInterface
 {
 
     public function getAll() {
         return DB::select('select * from crews');
     }
 
-    public function saveCrew(array $crew)
+    public function addCrew(array $crew)
     {
         if(!empty($crew)) {
             $insertedId =  DB::table('crews')->insertGetId($crew);

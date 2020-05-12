@@ -8,7 +8,7 @@ interface CrewRepositoryInterface
 {
     public function getAll();
 
-    public function saveCrew(array $crew);
+    public function addCrew(array $crew);
 
     public function modifyCrew(Crew $crew, $name, $position);
 

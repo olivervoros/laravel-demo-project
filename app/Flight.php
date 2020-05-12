@@ -33,14 +33,14 @@ class Flight extends Model
      * @param array $flightData
      * @return Flight
      */
-    public function setFlightData(FlightRepositoryInterface $repo, array $flightData = array())
+    public function saveFlight(FlightRepositoryInterface $repo, array $flightData = array())
     {
         $this->flightData = $this->assignFlightData($flightData);
         $result = $repo->saveFlight($this->flightData);
         return is_null($result) ? $this : $result;
     }
 
-    public function modifyFlightData(FlightRepositoryInterface $repo, int $flightId, array $flightData = array())
+    public function modifyFlight(FlightRepositoryInterface $repo, int $flightId, array $flightData = array())
     {
         $this->flightData = $this->assignFlightData($flightData);
         $result = $repo->modifyFlightData($flightId, $this->flightData);

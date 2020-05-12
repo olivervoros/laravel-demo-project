@@ -7,7 +7,7 @@ use App\Crew;
 use App\Flight;
 use Illuminate\Support\Facades\DB;
 
-class FlightRepository implements FlightRepositoryInterface, FlightRepositoryInterface
+class FlightRepository implements FlightRepositoryInterface
 {
 
     public function getAll() {

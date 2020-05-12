@@ -17,6 +17,7 @@ class CreateCrew extends Migration
             $table->id();
             $table->string("name");
             $table->string("position");
+            $table->unique(['name', 'position']);
             $table->timestamp('updated_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
         });

@@ -15,7 +15,7 @@ class CreateFlight extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
-            $table->string("flightNumber");
+            $table->string("flightNumber")->unique();
             $table->string("estimatedTimeOfDeparture");
             $table->string("estimatedTimeOfArrival");
             $table->string("departureAirport");
