@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -27,29 +28,43 @@ class DisplayFormTest extends DuskTestCase
         });
     }
 
-    /** @test */
-    public function form_email_validation_works()
-    {
+    public function form_does_not_have_an_age_field() {
         $this->browse(function (Browser $browser) {
             $browser->visit('/formtest')
-                    ->type('fullname', 'Oliver Test')
-                    ->type('email', 'oliver')
-                    ->type('password', 'password')
-                    ->click('button#submitForm')
-                    ->assertSee("The email must be a valid email address.");
+                    ->assertSourceMissing('age');
         });
     }
 
     /** @test */
-    public function form_password_length_validation_works()
+    public function form_has_exactly_four_input_fields()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/formtest');
+            $elements = $browser->driver->findElements(WebDriverBy::tagName('input'));
+            $this->assertCount(4, $elements);
+        });
+    }
+
+    /** @test */
+    public function form_has_exactly_one_submit_button_with_the_given_html_code()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/formtest');
+            $elements = $browser->driver->findElements(WebDriverBy::tagName('button'));
+            $this->assertCount(1, $elements);
+            $browser->assertSourceHas('<button id="submitForm" type="submit" class="btn btn-primary">Register</button>');
+        });
+    }
+
+    public function form_has_the_fullname_the_email_and_the_password_input_fields()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/formtest')
-                ->type('fullname', 'Oliver Test')
-                ->type('email', 'oliver@test.com')
-                ->type('password', '123456')
-                ->click('button#submitForm')
-                ->assertSee("The password must be at least 8 characters.");
+                ->assertSourceHas('name="fullname"')
+                ->assertSourceHas('name="email"')
+                ->assertSourceHas('name="password"');
         });
     }
+
+
 }

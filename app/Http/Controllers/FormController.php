@@ -14,12 +14,17 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'fullname' => 'required|max:255',
             'email' => 'required|email',
             'password' => 'required|min:8'
         ]);
 
-        dd($request->toArray());
+        return redirect('/dashboard');
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard.index');
     }
 }

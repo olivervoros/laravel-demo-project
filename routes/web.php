@@ -17,5 +17,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/formtest', 'FormController@index');
+Route::get('/formtest', 'FormController@index')->name('displayForm');;
 Route::post('/formtest', 'FormController@store');
+Route::get('/dashboard', 'FormController@dashboard')->name('dashboard');;
