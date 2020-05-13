@@ -15,7 +15,7 @@ class DisplayFormTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/formtest')
-                    ->assertSee('Welcome to our Website!');
+                ->assertSee('Welcome to our Website!');
         });
     }
 
@@ -24,14 +24,34 @@ class DisplayFormTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/formtest')
-                    ->assertSourceHas('name="_token"');
+                ->assertSourceHas('name="_token"');
         });
     }
 
-    public function form_does_not_have_an_age_field() {
+    public function there_is_only_one_CSRF_input_field_in_the_source_code()
+    {
+
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/formtest');
+            $elements = $browser->driver->findElements(WebDriverBy::name('_token'));
+            $this->assertCount(1, $elements);
+        });
+    }
+
+    /** @test */
+    public function the_CSRF_field_is_not_visible()
+    {
         $this->browse(function (Browser $browser) {
             $browser->visit('/formtest')
-                    ->assertSourceMissing('age');
+                ->assertMissing('_token');
+        });
+    }
+
+    public function form_does_not_have_an_age_field()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/formtest')
+                ->assertSourceMissing('age');
         });
     }
 
