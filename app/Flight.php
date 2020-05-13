@@ -9,35 +9,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flight extends Model
 {
-    private $flightData = [];
-    private $crew = [];
-
     const NUMBER_OF_PILOTS_ON_FLIGHT = 2;
     const NUMBER_OF_CABIN_CREW_ON_FLIGHT = 4;
+    private $flightData = [];
+    private $crew = [];
 
     public function crews()
     {
         return $this->belongsToMany('App\Crew');
     }
 
-    /**
-     * @return array
-     */
     public function getFlightData(): array
     {
         return $this->flightData;
     }
 
-    /**
-     * @param FlightRepositoryInterface|null $repo
-     * @param array $flightData
-     * @return Flight
-     */
     public function saveFlight(FlightRepositoryInterface $repo, array $flightData = array())
     {
         $this->flightData = $this->assignFlightData($flightData);
         $result = $repo->saveFlight($this->flightData);
         return is_null($result) ? $this : $result;
+    }
+
+    protected function assignFlightData($flightData = array()) {
+        $this->flightData['flightNumber'] = $flightData[0] ?? '';
+        $this->flightData['estimatedTimeOfDeparture'] = $flightData[1] ?? '';
+        $this->flightData['estimatedTimeOfArrival'] = $flightData[2] ?? '';
+        $this->flightData['departureAirport'] = $flightData[3] ?? '';
+        $this->flightData['arrivalAirport'] = $flightData[4] ?? '';
+        $this->flightData['delay'] = $flightData[5] ?? 0;
+
+        return $this->flightData;
     }
 
     public function modifyFlight(FlightRepositoryInterface $repo, int $flightId, array $flightData = array())
@@ -59,33 +61,6 @@ class Flight extends Model
         return is_null($result) ? $this : $result;
     }
 
-    protected function assignFlightData($flightData = array()) {
-        $this->flightData['flightNumber'] = $flightData[0] ?? '';
-        $this->flightData['estimatedTimeOfDeparture'] = $flightData[1] ?? '';
-        $this->flightData['estimatedTimeOfArrival'] = $flightData[2] ?? '';
-        $this->flightData['departureAirport'] = $flightData[3] ?? '';
-        $this->flightData['arrivalAirport'] = $flightData[4] ?? '';
-        $this->flightData['delay'] = $flightData[5] ?? 0;
-
-        return $this->flightData;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTotalCrew(): array
-    {
-        return $this->crew;
-    }
-
-    /**
-     * @param FlightRepositoryInterface $repo
-     * @param Crew $crew
-     * @param Flight $flight
-     * @return Flight
-     * @throws NumberOfCabinCrewExceededException
-     * @throws NumberOfPilotsExceededException
-     */
     public function assignCrewToFlight(FlightRepositoryInterface $repo, Crew $crew, Flight $flight)
     {
         $this->validateFlightCrew($crew);
@@ -96,12 +71,19 @@ class Flight extends Model
 
     }
 
-    public function removeCrewFromFlight(FlightRepositoryInterface $repo, Crew $crew, Flight $flight)
-    {
-        $this->crew[] = $crew;
+    protected function validateFlightCrew($crew) {
+        $crewOnFlight = $this->getNumberOfCrewOnFlight();
 
-        $result = $repo->removeCrewFromFlight($crew, $flight);
-        return is_null($result) ? $this : $result;
+        if($crew->getPosition()==='pilot' && $crewOnFlight['numPilots'] === self::NUMBER_OF_PILOTS_ON_FLIGHT) {
+            throw new NumberOfPilotsExceededException("No more pilots needed...");
+        }
+
+        if($crew->getPosition()==='cabincrew' && $crewOnFlight['numCabinCrews'] === self::NUMBER_OF_CABIN_CREW_ON_FLIGHT) {
+            throw new NumberOfCabinCrewExceededException("No more cabin crew needed...");
+        }
+
+        return true;
+
     }
 
     protected function getNumberOfCrewOnFlight() {
@@ -123,19 +105,17 @@ class Flight extends Model
         return array('numPilots' => $numPilots, 'numCabinCrews' => $numCabinCrews);
     }
 
-    protected function validateFlightCrew($crew) {
-        $crewOnFlight = $this->getNumberOfCrewOnFlight();
+    public function getTotalCrew(): array
+    {
+        return $this->crew;
+    }
 
-        if($crew->getPosition()==='pilot' && $crewOnFlight['numPilots'] === self::NUMBER_OF_PILOTS_ON_FLIGHT) {
-            throw new NumberOfPilotsExceededException("No more pilots needed...");
-        }
+    public function removeCrewFromFlight(FlightRepositoryInterface $repo, Crew $crew, Flight $flight)
+    {
+        $this->crew[] = $crew;
 
-        if($crew->getPosition()==='cabincrew' && $crewOnFlight['numCabinCrews'] === self::NUMBER_OF_CABIN_CREW_ON_FLIGHT) {
-            throw new NumberOfCabinCrewExceededException("No more cabin crew needed...");
-        }
-
-        return true;
-
+        $result = $repo->removeCrewFromFlight($crew, $flight);
+        return is_null($result) ? $this : $result;
     }
 
     public function isComplete()

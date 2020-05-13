@@ -14,15 +14,7 @@ class Crew extends Model
     private $position;
     private $availablePositions = ['pilot', 'cabincrew'];
 
-    /**
-     * Crew constructor.
-     * @param CrewRepositoryInterface $repo
-     * @param string $name
-     * @param string $position
-     * @return Crew
-     * @throws InvalidCrewTypeException
-     * @throws MissingCrewDataException
-     */
+
     public function addCrew(CrewRepositoryInterface $repo, string $name, string $position)
     {
         if(empty($name) OR empty($position)) {
@@ -74,33 +66,21 @@ class Crew extends Model
         return $this->belongsToMany('App\Flight');
     }
 
-    /**
-     * @return mixed
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
     public function setName($name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPosition()
     {
         return strtolower($this->position);
     }
 
-    /**
-     * @param mixed $position
-     */
     public function setPosition($position): void
     {
         $this->position = strtolower($position);
