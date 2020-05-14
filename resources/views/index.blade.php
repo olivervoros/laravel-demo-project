@@ -6,6 +6,7 @@
         <p><a href="{{ url('/dashboard') }}">Go to dashboard</a></p>
         <button id="openPrompt" class="btn btn-info" onclick="myFunction()">Click to open the prompt!</button>
         <p id="demo"></p>
+        <p id="10s"></p>
     </div>
 @section('js')
     <script>
@@ -19,4 +20,6 @@
             }
             document.getElementById("demo").innerHTML = txt;
         }
+
+        setTimeout(function(){ document.getElementById("10s").innerHTML = "Displays after 10seconds!" }, 10000);
     </script>

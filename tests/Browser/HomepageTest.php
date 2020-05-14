@@ -82,4 +82,15 @@ class HomepageTest extends DuskTestCase
         });
     }
 
+    /** @test */
+    public function text_displays_automatically_after_ten_seconds()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertDontSee("Displays after 10seconds!")
+                ->pause(11000)
+                ->assertSee("Displays after 10seconds!");
+        });
+    }
+
 }
