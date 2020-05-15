@@ -4,6 +4,7 @@ namespace Tests\Browser;
 
 use Illuminate\Support\Facades\App;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Pages\FormPage;
 use Tests\Browser\Pages\HomePage;
 use Tests\DuskTestCase;
 
@@ -109,6 +110,14 @@ class HomepageTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage)->click('@openPopupButton')->assertPopupWorks();
+        });
+    }
+
+    /** @test */
+    public function clicking_on_the_top_link_displays_the_registration_form()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new FormPage)->assert();
         });
     }
 
