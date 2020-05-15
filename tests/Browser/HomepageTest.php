@@ -95,6 +95,8 @@ class HomepageTest extends DuskTestCase
         });
     }
 
+    // Examples below using Pages...
+
     /** @test */
     public function clicking_on_the_homepage_link_redirects_back_to_the_homepage()
     {
@@ -116,6 +118,14 @@ class HomepageTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new FormPage)->assert();
+        });
+    }
+
+    /** @test */
+    public function text_appears_on_the_homepage_in_ten_seconds()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)->assertTextAppearsInTenSecond();
         });
     }
 

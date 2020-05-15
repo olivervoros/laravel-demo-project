@@ -37,6 +37,13 @@ class HomePage extends Page
                 ->assertSee('Stranger');
     }
 
+    public function assertTextAppearsInTenSecond(Browser $browser)
+    {
+            $browser->assertDontSee("Displays after 10seconds!")
+                    ->pause(11000)
+                    ->assertSee("Displays after 10seconds!");
+    }
+
     /**
      * Get the element shortcuts for the page.
      *

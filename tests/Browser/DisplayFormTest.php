@@ -76,6 +76,7 @@ class DisplayFormTest extends DuskTestCase
         });
     }
 
+    /** @test */
     public function form_has_the_fullname_the_email_and_the_password_input_fields()
     {
         $this->browse(function (Browser $browser) {

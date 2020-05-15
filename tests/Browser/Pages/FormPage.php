@@ -40,7 +40,7 @@ class FormPage extends Page
     public function elements()
     {
         return [
-
+            '@token' => 'input[name=_token]',
         ];
     }
 }
