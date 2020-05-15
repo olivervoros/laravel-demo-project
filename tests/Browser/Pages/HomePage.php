@@ -24,7 +24,17 @@ class HomePage extends Page
      */
     public function assert(Browser $browser)
     {
-        //
+        $browser->assertSee('Hello World!')
+                ->assertSee('Go to the registration form')
+                ->assertSee('Go to dashboard');
+    }
+
+    public function assertPopupWorks(Browser $browser)
+    {
+
+        $browser->assertDialogOpened("Please enter your name:")
+                ->acceptDialog()
+                ->assertSee('Stranger');
     }
 
     /**
@@ -35,7 +45,7 @@ class HomePage extends Page
     public function elements()
     {
         return [
-            '@element' => '#selector',
+            '@openPopupButton' => '#openPrompt',
         ];
     }
 }

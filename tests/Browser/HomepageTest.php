@@ -4,6 +4,7 @@ namespace Tests\Browser;
 
 use Illuminate\Support\Facades\App;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Pages\HomePage;
 use Tests\DuskTestCase;
 
 class HomepageTest extends DuskTestCase
@@ -90,6 +91,24 @@ class HomepageTest extends DuskTestCase
                 ->assertDontSee("Displays after 10seconds!")
                 ->pause(11000)
                 ->assertSee("Displays after 10seconds!");
+        });
+    }
+
+    // Tests below are using the Homepage Page...
+
+    /** @test */
+    public function clicking_on_the_homepage_link_redirects_back_to_the_homepage()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)->assert();
+        });
+    }
+
+    /** @test */
+    public function redirecting_to_the_homepage_and_clicking_on_blue_button_opens_the_popup_and_displays_the_default_name()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new HomePage)->click('@openPopupButton')->assertPopupWorks();
         });
     }
 
