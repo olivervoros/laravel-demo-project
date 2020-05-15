@@ -95,8 +95,6 @@ class HomepageTest extends DuskTestCase
         });
     }
 
-    // Tests below are using the Homepage Page...
-
     /** @test */
     public function clicking_on_the_homepage_link_redirects_back_to_the_homepage()
     {
