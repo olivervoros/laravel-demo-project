@@ -6,9 +6,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Passenger extends Authenticatable
 {
     use Notifiable;
+
+    public function flightreviews()
+    {
+        return $this->hasMany('App\FlightReview');
+    }
 
     /**
      * The attributes that are mass assignable.

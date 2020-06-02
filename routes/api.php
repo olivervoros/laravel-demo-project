@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('flightreviews', 'FlightreviewController@index');
+Route::get('flightreviews/{id}', 'FlightreviewController@show');
+Route::post('flightreviews', 'FlightreviewController@store');
+Route::put('flightreviews/{id}', 'FlightreviewController@update');
+Route::delete('flightreviews/{id}', 'FlightreviewController@delete');
