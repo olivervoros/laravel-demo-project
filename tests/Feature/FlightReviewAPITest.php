@@ -20,10 +20,9 @@ class FlightReviewAPITest extends TestCase
 
 
     /** @test */
-    public function get_all_flight_reviews_loads_ok_and_returns_200()
+    public function get_all_flight_reviews_loads_ok()
     {
         $response = $this->get(self::API_URL);
-        $response->assertOk();
         $response->assertStatus(200);
     }
 
