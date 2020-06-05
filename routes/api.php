@@ -14,8 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('flightreviews', 'FlightreviewController@index');
-Route::get('flightreviews/{id}', 'FlightreviewController@show');
-Route::post('flightreviews', 'FlightreviewController@store');
-Route::put('flightreviews/{id}', 'FlightreviewController@update');
-Route::delete('flightreviews/{id}', 'FlightreviewController@delete');
+Route::post('/register', 'API\AuthController@register');
+Route::post('/login', [ 'as' => 'login', 'uses' => 'API\AuthController@login']);
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/logout', 'API\AuthController@logout');
+    Route::get('/getloggedinpassenger', 'API\AuthController@getLoggedInPassenger');
+
+    Route::get('flightreviews', 'FlightreviewController@index');
+    Route::get('flightreviews/{id}', 'FlightreviewController@show');
+    Route::post('flightreviews', 'FlightreviewController@store');
+    Route::put('flightreviews/{id}', 'FlightreviewController@update');
+    Route::delete('flightreviews/{id}', 'FlightreviewController@delete');
+});
