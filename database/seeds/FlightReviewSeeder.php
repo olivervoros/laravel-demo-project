@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class FlightReviewSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class FlightReviewSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('flightreviews')->truncate();
         factory(App\Flightreview::class, 1000)->create();
     }
 }

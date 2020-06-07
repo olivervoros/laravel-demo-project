@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Passenger;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class FlightReviewAPITest extends TestCase
@@ -16,6 +18,7 @@ class FlightReviewAPITest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        Passport::actingAs(factory(Passenger::class)->create());
     }
 
 
@@ -40,6 +43,13 @@ class FlightReviewAPITest extends TestCase
 
         $structure = [['passenger_id', 'airline', 'flight_number', 'review_points', 'review_title', 'review_body']];
         $response->assertJsonStructure($structure);
+    }
+
+    /** @test */
+    public function get_existing_flight_review_by_id()
+    {
+        $response = $this->get(self::API_URL."/9");
+        $response->assertStatus(200);
     }
 
     /** @test */
@@ -99,14 +109,6 @@ class FlightReviewAPITest extends TestCase
     }
 
     /** @test */
-    public function get_existing_flight_review_by_id()
-    {
-        $response = $this->get(self::API_URL."/9");
-        $response->assertOk();
-        $response->assertStatus(200);
-    }
-
-    /** @test */
     public function get_non_existing_flight_review_by_id()
     {
         $response = $this->get(self::API_URL."/999999");
@@ -132,7 +134,7 @@ class FlightReviewAPITest extends TestCase
     }
 
     /** @test */
-    public function updating_a_nox_existant_flight_review_shows_404()
+    public function updating_a_nox_existent_flight_review_shows_404()
     {
         $response = $this->put(self::API_URL."/999999", []);
         $response->assertStatus(404);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PassengerSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class PassengerSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('passengers')->truncate();
         factory(App\Passenger::class, 100)->create();
     }
 }
