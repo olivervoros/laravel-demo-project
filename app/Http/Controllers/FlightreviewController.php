@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Flightreview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class FlightreviewController extends Controller
@@ -17,7 +18,7 @@ class FlightreviewController extends Controller
 
     public function show($id)
     {
-        $flightReview = FlightReview::find($id);
+        $flightReview = FlightReview::where(['passenger_id' => auth()->user()->id, 'id' => $id])->first();
         if (empty($flightReview)) {
             return response()->json(['message' => 'Flight Review Not Found!'], 404);
         }
@@ -26,7 +27,6 @@ class FlightreviewController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = $this->validateFlightReview($request);
         if ($validator->fails()) {
             $errorMsg = empty($validator->errors()->all()[0]) ? "N/A" : $validator->errors()->all()[0];
@@ -38,7 +38,7 @@ class FlightreviewController extends Controller
 
     public function update(Request $request, $id)
     {
-        $flightReview = Flightreview::find($id);
+        $flightReview = FlightReview::where(['passenger_id' => auth()->user()->id, 'id' => $id])->first();
         if (empty($flightReview)) {
             return response()->json(['message' => 'Flight Review Not Found!'], 404);
         }
@@ -56,7 +56,7 @@ class FlightreviewController extends Controller
 
     public function delete(Request $request, $id)
     {
-        $flightReview = Flightreview::find($id);
+        $flightReview = FlightReview::where(['passenger_id' => auth()->user()->id, 'id' => $id])->first();
         if (empty($flightReview)) {
             return response()->json(['message' => 'Flight Review Not Found!'], 404);
         }

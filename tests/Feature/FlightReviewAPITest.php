@@ -18,7 +18,8 @@ class FlightReviewAPITest extends TestCase
     {
         parent::setUp();
         $this->seed();
-        Passport::actingAs(factory(Passenger::class)->create());
+        $randomPassenger = Passenger::find(999);
+        Passport::actingAs($randomPassenger);
     }
 
 
@@ -33,7 +34,7 @@ class FlightReviewAPITest extends TestCase
     public function get_all_flight_reviews_returns_the_expected_number_of_reviews()
     {
         $response = $this->get(self::API_URL);
-        $this->assertCount(1000, json_decode($response->getContent()));
+        $this->assertCount(17, json_decode($response->getContent()));
     }
 
     /** @test */
@@ -48,14 +49,14 @@ class FlightReviewAPITest extends TestCase
     /** @test */
     public function get_existing_flight_review_by_id()
     {
-        $response = $this->get(self::API_URL."/9");
+        $response = $this->get(self::API_URL."/9001");
         $response->assertStatus(200);
     }
 
     /** @test */
     public function successfully_create_a_new_flight_review()
     {
-        $post = ['passenger_id' => 99, 'airline' => "Iberia", "flight_number" => 999,
+        $post = ['passenger_id' => 999, 'airline' => "Iberia", "flight_number" => 999,
                  'review_points' => 5, "review_title" => "Example Title", 'review_body' => "Example Body"];
         $response = $this->postJson(self::API_URL, $post);
         $response->assertStatus(201);
@@ -64,7 +65,7 @@ class FlightReviewAPITest extends TestCase
     /** @test */
     public function failed_to_create_a_new_flight_review_because_of_invalid_data()
     {
-        $post = ['passenger_id' => 99, 'airline' => "Iberia", "flight_number" => "This should be an integer",
+        $post = ['passenger_id' => 999, 'airline' => "Iberia", "flight_number" => "This should be an integer",
             'review_points' => 5, "review_title" => "Example Title", 'review_body' => "Example Body"];
         $response = $this->postJson(self::API_URL, $post);
         $response->assertStatus(400);
@@ -73,7 +74,7 @@ class FlightReviewAPITest extends TestCase
     /** @test */
     public function failed_to_create_a_new_flight_review_because_of_missing_data()
     {
-        $post = ['passenger_id' => 99, "review_title" => "Example Title", 'review_body' => "Example Body"];
+        $post = ['passenger_id' => 999, "review_title" => "Example Title", 'review_body' => "Example Body"];
         $response = $this->postJson(self::API_URL, $post);
         $response->assertStatus(400);
     }
@@ -81,12 +82,12 @@ class FlightReviewAPITest extends TestCase
     /** @test */
     public function the_correct_flight_review_is_created()
     {
-        $post = ['passenger_id' => 99, 'airline' => "Oliver Airline", "flight_number" => 999,
+        $post = ['passenger_id' => 999, 'airline' => "Oliver Airline", "flight_number" => 999,
             'review_points' => 9, "review_title" => "New Review Title", 'review_body' => "New Review Body"];
         $response = $this->postJson(self::API_URL, $post);
         $response->assertStatus(201)
                  ->assertJson(
-                     ['passenger_id' => 99, 'airline' => "Oliver Airline", "flight_number" => 999,
+                     ['passenger_id' => 999, 'airline' => "Oliver Airline", "flight_number" => 999,
                      'review_points' => 9, "review_title" => "New Review Title",
                          'review_body' => "New Review Body"]);
 
@@ -95,13 +96,13 @@ class FlightReviewAPITest extends TestCase
         $response->assertJsonPath('review_title', 'New Review Title');
 
         $response = $this->get(self::API_URL);
-        $this->assertCount(1001, json_decode($response->getContent()));
+        $this->assertCount(18, json_decode($response->getContent()));
     }
 
     /** @test */
     public function adding_an_extra_field_to_create_flight_review_is_ignored()
     {
-        $post = ['passenger_id' => 99, 'airline' => "Oliver Airline", "flight_number" => 999,
+        $post = ['passenger_id' => 999, 'airline' => "Oliver Airline", "flight_number" => 999,
             'review_points' => 9, "review_title" => "New Review Title",
             'review_body' => "New Review Body", "extra_field" => "No DB column for this field..."];
         $response = $this->postJson(self::API_URL, $post);
@@ -118,13 +119,13 @@ class FlightReviewAPITest extends TestCase
     /** @test */
     public function we_can_update_a_flight_review()
     {
-        $post = ['passenger_id' => 99, 'airline' => "Oliver Airline", "flight_number" => 999,
+        $post = ['passenger_id' => 999, 'airline' => "Oliver Airline", "flight_number" => 999,
             'review_points' => 9, "review_title" => "New Review Title", 'review_body' => "New Review Body"];
         $response = $this->postJson(self::API_URL, $post);
         $createdId = json_decode($response->getContent(), true)['id'];
         $this->assertIsNumeric($createdId);
 
-        $modifiedData = ['passenger_id' => 99, 'airline' => "Oliver Airline", "flight_number" => 999,
+        $modifiedData = ['passenger_id' => 999, 'airline' => "Oliver Airline", "flight_number" => 999,
             'review_points' => 9, "review_title" => "Modified Review title", 'review_body' => "New Review Body"];
 
         $response = $this->put(self::API_URL."/".$createdId, $modifiedData);
@@ -143,13 +144,13 @@ class FlightReviewAPITest extends TestCase
     /** @test */
     public function we_can_delete_a_flight_review()
     {
-        $response = $this->delete(self::API_URL."/77");
+        $response = $this->delete(self::API_URL."/9004");
         $response->assertStatus(204);
 
         $response = $this->get(self::API_URL);
-        $this->assertCount(999, json_decode($response->getContent()));
+        $this->assertCount(16, json_decode($response->getContent()));
 
-        $response = $this->get(self::API_URL."/77");
+        $response = $this->get(self::API_URL."/9004");
         $response->assertStatus(404);
     }
 }
