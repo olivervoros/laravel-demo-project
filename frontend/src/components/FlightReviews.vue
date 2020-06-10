@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="my-3">
-            <button type="button" class="btn btn-primary">Add new Review</button>
+            <button v-on:click="displayCreateForm" type="button" class="btn btn-primary">Add new Review</button>
         </div>
         <div>
             <button v-on:click="logout" type="button" class="btn btn-info">Logout</button>
@@ -25,9 +25,9 @@
                 <td>{{review.airline}}</td>
                 <td>{{review.flight_number}}</td>
                 <td>{{review.review_points}}</td>
-                <td>View More</td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td><a @click="viewMore(review.id)" href="#">View More</a></td>
+                <td><a href="">Edit</a></td>
+                <td><a href="">Delete</a></td>
             </tr>
             </tbody>
         </table>
@@ -43,15 +43,30 @@
             }
         },
         mounted() {
+            let access_token = this.$cookies.get('accessToken');
             axios
-                .get('http://localhost:8000/api/flightreviews')
+                .get('http://localhost:8000/api/flightreviews', {headers: { Authorization: `Bearer ${access_token}` }})
                 .then(response => (this.reviews = response.data))
         },
         methods: {
+
             logout: function () {
                 this.$cookies.set('accessToken', false);
                 this.$emit('logoutUser')
-            }
+            },
+
+            viewMore: function (id) {
+                let access_token = this.$cookies.get('accessToken');
+                axios
+                    .get('http://localhost:8000/api/flightreviews/'+id, {headers: { Authorization: `Bearer ${access_token}` }})
+                    .then(response => {
+                        this.$emit('viewMore', response.data);
+                })
+            },
+
+            displayCreateForm: function () {
+                this.$emit('displayCreateForm')
+            },
         }
     }
 </script>
