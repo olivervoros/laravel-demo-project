@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Flightreview;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class FlightreviewController extends Controller
@@ -12,13 +11,14 @@ class FlightreviewController extends Controller
 
     public function index()
     {
-        return Flightreview::all();
+        return FlightReview::where('passenger_id', auth()->user()->id)->get();
+
     }
 
     public function show($id)
     {
         $flightReview = FlightReview::find($id);
-        if(empty($flightReview)) {
+        if (empty($flightReview)) {
             return response()->json(['message' => 'Flight Review Not Found!'], 404);
         }
         return $flightReview;
@@ -28,9 +28,9 @@ class FlightreviewController extends Controller
     {
 
         $validator = $this->validateFlightReview($request);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             $errorMsg = empty($validator->errors()->all()[0]) ? "N/A" : $validator->errors()->all()[0];
-            return response()->json(['message' => 'Validation Error: '.$errorMsg], 400);
+            return response()->json(['message' => 'Validation Error: ' . $errorMsg], 400);
         }
 
         return FlightReview::create($request->all());
@@ -39,14 +39,14 @@ class FlightreviewController extends Controller
     public function update(Request $request, $id)
     {
         $flightReview = Flightreview::find($id);
-        if(empty($flightReview)) {
+        if (empty($flightReview)) {
             return response()->json(['message' => 'Flight Review Not Found!'], 404);
         }
 
         $validator = $this->validateFlightReview($request);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             $errorMsg = empty($validator->errors()->all()[0]) ? "N/A" : $validator->errors()->all()[0];
-            return response()->json(['message' => 'Validation Error: '.$errorMsg], 400);
+            return response()->json(['message' => 'Validation Error: ' . $errorMsg], 400);
         }
 
         $flightReview->update($request->all());
@@ -57,17 +57,18 @@ class FlightreviewController extends Controller
     public function delete(Request $request, $id)
     {
         $flightReview = Flightreview::find($id);
-        if(empty($flightReview)) {
+        if (empty($flightReview)) {
             return response()->json(['message' => 'Flight Review Not Found!'], 404);
         }
 
-        if($flightReview->delete()) {
-            return response()->json([],204);
+        if ($flightReview->delete()) {
+            return response()->json([], 204);
         }
 
     }
 
-    protected function validateFlightReview(Request $request) {
+    protected function validateFlightReview(Request $request)
+    {
 
         $request->only('passenger_id', 'airline', 'flight_number', 'review_points', 'review_title', 'review_body');
 

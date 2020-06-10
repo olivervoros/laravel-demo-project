@@ -1,17 +1,26 @@
 <template>
     <div id="app">
         <div v-if="loggedIn">
-            <div v-if="page==='home'" >
+            <div v-if="page==='HOME'" >
                 <flight-reviews @logoutUser="logoutUser"
                                 @viewMore="viewMore"
-                                @displayCreateForm="displayCreateForm">
+                                @backHome="backHome"
+                                @displayCreateForm="displayCreateForm"
+                                @update="update">
                 </flight-reviews>
             </div>
-            <div v-if="page==='flightreview'" >
+            <div v-else-if="page==='READ'" >
                 <flight-review @backHome="backHome" v-bind:review="this.review"></flight-review>
             </div>
-            <div v-if="page==='create'" >
+            <div v-else-if="page==='CREATE'" >
                 <create-flight-review @backHome="backHome"></create-flight-review>
+            </div>
+            <div v-else-if="page==='UPDATE'" >
+                <update-flight-review v-bind:review="this.review"
+                                      @backHome="backHome"
+                                      @logoutUser="logoutUser"
+                                      @update="update"
+                ></update-flight-review>
             </div>
         </div>
         <div v-else>
@@ -25,6 +34,7 @@
     import FlightReview from './components/FlightReview';
     import LoginForm from './components/LoginForm';
     import CreateFlightReview from './components/CreateFlightReview';
+    import UpdateFlightReview from './components/UpdateFlightReview';
 
     export default {
         name: 'App',
@@ -32,12 +42,13 @@
             FlightReviews,
             LoginForm,
             FlightReview,
-            CreateFlightReview
+            CreateFlightReview,
+            UpdateFlightReview
         },
         data: function () {
             return {
                 loggedIn: (this.$cookies.get('accessToken')!=="false"),
-                page: "home",
+                page: "HOME",
                 review: []
             }
         },
@@ -50,14 +61,18 @@
             },
             viewMore(review) {
                 this.review = review;
-                this.page = "flightreview"
+                this.page = "READ"
             },
             backHome() {
-                this.page = "home"
+                this.page = "HOME"
             },
             displayCreateForm() {
-                this.page = "create"
-            }
+                this.page = "CREATE"
+            },
+            update(review) {
+                this.review = review;
+                this.page = "UPDATE"
+            },
         }
     }
 </script>
