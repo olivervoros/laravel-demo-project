@@ -35,6 +35,7 @@
 </template>
 <script>
     import axios from 'axios';
+    import { API_URL } from '../main';
 
     export default {
         data() {
@@ -45,7 +46,7 @@
         mounted() {
             let access_token = this.$cookies.get('accessToken');
             axios
-                .get('http://localhost:8000/api/flightreviews', {headers: { Authorization: `Bearer ${access_token}` }})
+                .get(API_URL, {headers: { Authorization: `Bearer ${access_token}` }})
                 .then(response => (this.reviews = response.data))
         },
         methods: {
@@ -58,9 +59,8 @@
             update: function (id) {
                 let access_token = this.$cookies.get('accessToken');
                 axios
-                    .get('http://localhost:8000/api/flightreviews/'+id, {headers: { Authorization: `Bearer ${access_token}` }})
+                    .get(API_URL + "/" +id, {headers: { Authorization: `Bearer ${access_token}` }})
                     .then(response => {
-                        console.log|(response);
                         this.$emit('update', response.data);
                 })
             },
@@ -68,23 +68,43 @@
             viewMore: function (id) {
                 let access_token = this.$cookies.get('accessToken');
                 axios
-                    .get('http://localhost:8000/api/flightreviews/'+id, {headers: { Authorization: `Bearer ${access_token}` }})
+                    .get(API_URL + "/" +id, {headers: { Authorization: `Bearer ${access_token}` }})
                     .then(response => {
                         this.$emit('viewMore', response.data);
                     })
             },
 
             deleteReview: function (id) {
+                let that = this;
                 if(confirm('Hey! Are you sure you want to delete the flight review?')) {
                     let access_token = this.$cookies.get('accessToken');
                     axios
-                        .delete('http://localhost:8000/api/flightreviews/' + id, {headers: {Authorization: `Bearer ${access_token}`}})
+                        .delete(API_URL + "/" +id, {headers: {Authorization: `Bearer ${access_token}`}})
                         .then(response => {
                             console.log(response);
-                        })
+                        }).catch(
+                        function (error) {
+                            if (!error.response) {
+                                that.errorStatus = 'Network error, cannot connect to the API. Please try later';
+                            } else {
+                                that.errorStatus = error.response.data.message;
+                            }
+                        }
+                    )
                     axios
-                        .get('http://localhost:8000/api/flightreviews', {headers: {Authorization: `Bearer ${access_token}`}})
-                        .then(response => (this.reviews = response.data))
+                        .get(API_URL, {headers: {Authorization: `Bearer ${access_token}`}})
+                        .then(response => {
+                            this.reviews = response.data;
+                            this.$emit('backHome', "You have successfully deleted the flight review.");
+                        }).catch(
+                        function (error) {
+                            if (!error.response) {
+                                that.errorStatus = 'Network error, cannot connect to the API. Please try later';
+                            } else {
+                                that.errorStatus = error.response.data.message;
+                            }
+                        }
+                    )
                 }
 
             },

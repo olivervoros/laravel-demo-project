@@ -8,6 +8,9 @@ Vue.use(VueCookies)
 
 Vue.config.productionTip = false
 
+export const API_URL = "http://localhost:8000/api/flightreviews";
+export const API_LOGIN_URL = "http://localhost:8000/api/login";
+
 new Vue({
   render: h => h(App),
 }).$mount('#app')

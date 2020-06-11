@@ -40,6 +40,7 @@
 </template>
 <script>
     import axios from "axios";
+    import { API_URL } from "../main";
 
     export default {
         name: 'UpdateFlightReview',
@@ -78,10 +79,10 @@
 
                 let access_token = this.$cookies.get('accessToken');
                 axios
-                    .put('http://localhost:8000/api/flightreviews'+"/"+ reviewId, data, {headers: {Authorization: `Bearer ${access_token}`}})
+                    .put(API_URL +"/"+ reviewId, data, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
-                        this.$emit('backHome');
+                        this.$emit('backHome', "You have successfully updated the flight review.");
                     }).catch(
                     function (error) {
                         if (!error.response) {

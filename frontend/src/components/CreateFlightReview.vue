@@ -39,6 +39,7 @@
 </template>
 <script>
     import axios from "axios";
+    import { API_URL } from '../main';
 
     export default {
         name: 'CreateFlightReview',
@@ -68,10 +69,10 @@
 
                 let access_token = this.$cookies.get('accessToken');
                 axios
-                    .post('http://localhost:8000/api/flightreviews', data, {headers: {Authorization: `Bearer ${access_token}`}})
+                    .post(API_URL, data, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
-                        this.$emit('backHome');
+                        this.$emit('backHome', "You have successfully created a new flight review!");
                     }).catch(
                     function (error) {
                         if (!error.response) {

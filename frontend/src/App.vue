@@ -1,6 +1,11 @@
 <template>
     <div id="app">
         <div v-if="loggedIn">
+            <transition name="fade">
+                <div v-if='message!==""' class="alert alert-primary" role="alert">
+                    {{ message }}...
+                </div>
+            </transition>
             <div v-if="page==='HOME'" >
                 <flight-reviews @logoutUser="logoutUser"
                                 @viewMore="viewMore"
@@ -43,18 +48,21 @@
             LoginForm,
             FlightReview,
             CreateFlightReview,
-            UpdateFlightReview
+            UpdateFlightReview,
         },
         data: function () {
             return {
                 loggedIn: (this.$cookies.get('accessToken')!=="false"),
                 page: "HOME",
-                review: []
+                review: [],
+                message: ""
             }
         },
         methods: {
-            loginUser() {
+            loginUser(message) {
                 this.loggedIn = true
+                this.message = message
+                setTimeout(() => this.message = "", 5000)
             },
             logoutUser() {
                 this.loggedIn = false
@@ -63,8 +71,10 @@
                 this.review = review;
                 this.page = "READ"
             },
-            backHome() {
+            backHome(message) {
                 this.page = "HOME"
+                this.message = message
+                setTimeout(() => this.message = "", 5000)
             },
             displayCreateForm() {
                 this.page = "CREATE"
@@ -85,5 +95,11 @@
         text-align: center;
         color: #2c3e50;
         margin-top: 60px;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 2s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>
