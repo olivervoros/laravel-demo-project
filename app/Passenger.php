@@ -10,6 +10,8 @@ class Passenger extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    public $timestamps = true;
+
     public function flightreviews()
     {
         return $this->hasMany('App\FlightReview');

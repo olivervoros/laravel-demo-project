@@ -2,6 +2,9 @@
     <div class="container">
         <button v-on:click="backHome" type="button" class="btn btn-info my-4">Back to the list</button>
         <h2>Create Flight Review</h2>
+        <div v-if='errorStatus!==""' class="alert alert-danger" role="alert">
+            {{ errorStatus }}...
+        </div>
         <form v-on:submit.prevent="create">
             <div class="form-group">
                 <label for="airline">Airline</label>
@@ -10,12 +13,14 @@
             </div>
             <div class="form-group">
                 <label for="flightNumber">Flight Number (Only numbers)</label>
-                <input pattern="\d*" required v-model="flight_number" type="text" class="form-control" name="flight_number"
+                <input pattern="\d*" required v-model="flight_number" type="text" class="form-control"
+                       name="flight_number"
                        id="flightNumber">
             </div>
             <div class="form-group">
                 <label for="reviewPoints">Review Score (1-10)</label>
-                <input type="number" step="1" min="0"  max="10" v-model="review_points" required class="form-control" name="review_points"
+                <input type="number" step="1" min="0" max="10" v-model="review_points" required class="form-control"
+                       name="review_points"
                        id="reviewPoints">
             </div>
             <div class="form-group">
@@ -43,12 +48,14 @@
                 airline: "",
                 review_points: "",
                 review_title: "",
-                review_body: ""
+                review_body: "",
+                errorStatus: ""
             }
         },
         methods: {
 
             create: function () {
+                let that = this;
                 let user = this.$cookies.get('loggedInUser');
                 let data = {
                     passenger_id: user.id,
@@ -65,7 +72,15 @@
                     .then(response => {
                         console.log(response);
                         this.$emit('backHome');
-                    })
+                    }).catch(
+                    function (error) {
+                        if (!error.response) {
+                            that.errorStatus = 'Network error, cannot connect to the API. Please try later';
+                        } else {
+                            that.errorStatus = error.response.data.message;
+                        }
+                    }
+                )
 
             },
             backHome: function () {

@@ -2,6 +2,9 @@
     <div class="container">
         <button v-on:click="backHome" type="button" class="btn btn-info my-4">Back to the list</button>
         <h2>Update Flight Review</h2>
+        <div v-if='errorStatus!==""' class="alert alert-danger" role="alert">
+            {{ errorStatus }}...
+        </div>
         <form v-on:submit.prevent="update">
             <div class="form-group">
                 <input :value="review.id" required type="hidden" class="form-control" name="id">
@@ -48,12 +51,13 @@
                 airline: "",
                 review_points: "",
                 review_title: "",
-                review_body: ""
+                review_body: "",
+                errorStatus: ""
             }
         },
         methods: {
-
             update: function (event) {
+                let that = this;
 
                 let reviewId = event.target.elements.id.value
                 let airline = event.target.elements.airline.value
@@ -78,7 +82,15 @@
                     .then(response => {
                         console.log(response);
                         this.$emit('backHome');
-                    })
+                    }).catch(
+                    function (error) {
+                        if (!error.response) {
+                            that.errorStatus = 'Network error, cannot connect to the API. Please try later';
+                        } else {
+                            that.errorStatus = error.response.data.message;
+                        }
+                    }
+                )
 
             },
             backHome: function () {

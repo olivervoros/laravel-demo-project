@@ -13,13 +13,15 @@ class FlightReviewAPITest extends TestCase
     use RefreshDatabase;
 
     const API_URL = 'http://localhost:8000/api/flightreviews';
+    const TEST_PASSENGER_ID = 999;
+    const TEST_PASSENGER_HAS_NUM_REVIEWS = 17;
 
     public function setUp():void
     {
         parent::setUp();
         $this->seed();
-        $randomPassenger = Passenger::find(999);
-        Passport::actingAs($randomPassenger);
+        $testPassenger = Passenger::find(self::TEST_PASSENGER_ID);
+        Passport::actingAs($testPassenger);
     }
 
 
@@ -34,7 +36,7 @@ class FlightReviewAPITest extends TestCase
     public function get_all_flight_reviews_returns_the_expected_number_of_reviews()
     {
         $response = $this->get(self::API_URL);
-        $this->assertCount(17, json_decode($response->getContent()));
+        $this->assertCount(self::TEST_PASSENGER_HAS_NUM_REVIEWS, json_decode($response->getContent()));
     }
 
     /** @test */
@@ -96,7 +98,7 @@ class FlightReviewAPITest extends TestCase
         $response->assertJsonPath('review_title', 'New Review Title');
 
         $response = $this->get(self::API_URL);
-        $this->assertCount(18, json_decode($response->getContent()));
+        $this->assertCount((self::TEST_PASSENGER_HAS_NUM_REVIEWS + 1), json_decode($response->getContent()));
     }
 
     /** @test */
@@ -148,7 +150,7 @@ class FlightReviewAPITest extends TestCase
         $response->assertStatus(204);
 
         $response = $this->get(self::API_URL);
-        $this->assertCount(16, json_decode($response->getContent()));
+        $this->assertCount((self::TEST_PASSENGER_HAS_NUM_REVIEWS - 1), json_decode($response->getContent()));
 
         $response = $this->get(self::API_URL."/9004");
         $response->assertStatus(404);

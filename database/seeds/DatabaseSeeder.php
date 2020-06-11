@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PassengerSeeder::class);
         $this->call(FlightReviewSeeder::class);
+        exec('php artisan passport:client --personal --name="Oliver Voros"');
     }
 }
