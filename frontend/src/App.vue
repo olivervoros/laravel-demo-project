@@ -3,7 +3,7 @@
         <div v-if="loggedIn">
             <transition name="fade">
                 <div v-if='message!==""' class="alert alert-primary" role="alert">
-                    {{ message }}...
+                    {{ message }}
                 </div>
             </transition>
             <div v-if="page==='HOME'" >
@@ -61,8 +61,10 @@
         methods: {
             loginUser(message) {
                 this.loggedIn = true
-                this.message = message
-                setTimeout(() => this.message = "", 5000)
+                if(message) {
+                    this.message = message
+                    setTimeout(() => this.message = "", 5000)
+                }
             },
             logoutUser() {
                 this.loggedIn = false
@@ -73,8 +75,10 @@
             },
             backHome(message) {
                 this.page = "HOME"
-                this.message = message
-                setTimeout(() => this.message = "", 5000)
+                if(message) {
+                    this.message = message
+                    setTimeout(() => this.message = "", 5000)
+                }
             },
             displayCreateForm() {
                 this.page = "CREATE"

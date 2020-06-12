@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <button v-on:click="backHome" type="button" class="btn btn-info my-4">Back to the list</button>
+        <div id="updateFlightReview">
         <h2>Update Flight Review</h2>
         <div v-if='errorStatus!==""' class="alert alert-danger" role="alert">
             {{ errorStatus }}...
@@ -35,7 +35,9 @@
                           rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Update Review</button>
+            <button v-on:click="backHome" type="button" class="btn btn-info m-4">Back to the List</button>
         </form>
+        </div>
     </div>
 </template>
 <script>
@@ -100,3 +102,26 @@
         }
     }
 </script>
+<style>
+
+    div#updateFlightReview h2 {
+        margin: 50px 0;
+    }
+
+    div#updateFlightReview textarea {
+        min-height:50px;
+        height:auto;
+    }
+
+    div#updateFlightReview {
+        width: 500px;
+        margin: 20px auto;
+    }
+
+    div#updateFlightReview label {
+        float: left;
+        font-weight: bolder;
+
+    }
+
+</style>

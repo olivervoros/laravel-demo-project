@@ -1,12 +1,16 @@
 <template>
     <div class="container">
-        <div class="my-3">
-            <button v-on:click="displayCreateForm" type="button" class="btn btn-primary">Add new Review</button>
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Manage Flight Reviews</h2>
+                </div>
+                <div class="col-sm-6">
+                    <button v-on:click="logout" type="button" class="btn btn-warning">Logout</button>
+                    <button v-on:click="displayCreateForm" type="button" class="btn btn-success">Add new Review +</button>
+                </div>
+            </div>
         </div>
-        <div>
-            <button v-on:click="logout" type="button" class="btn btn-info">Logout</button>
-        </div>
-        <h1 class="py-4">Flight Reviews</h1>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -115,3 +119,27 @@
         }
     }
 </script>
+<style>
+    .table-title {
+        background: darkslategray;
+        color: #fff;
+        padding: 16px 30px;
+        border-radius: 3px 3px 0 0;
+    }
+    .table-title h2 {
+        margin: 5px;
+        font-size: 24px;
+        text-align: left
+    }
+    .table-title .btn {
+        color: #fff;
+        float: right;
+        font-size: 17px;
+        border: none;
+        min-width: 150px;
+        border-radius: 7px;
+        outline: none !important;
+        margin-left: 20px;
+        font-weight: bolder;
+    }
+</style>

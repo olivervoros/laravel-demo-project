@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <button v-on:click="backHome" type="button" class="btn btn-info my-4">Back to the list</button>
+        <div id="createFlightReview">
         <h2>Create Flight Review</h2>
         <div v-if='errorStatus!==""' class="alert alert-danger" role="alert">
-            {{ errorStatus }}...
+            {{ errorStatus }}
         </div>
         <form v-on:submit.prevent="create">
             <div class="form-group">
@@ -34,7 +34,9 @@
                           rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save Review</button>
+            <button v-on:click="backHome" type="button" class="btn btn-info m-4">Back to the List</button>
         </form>
+        </div>
     </div>
 </template>
 <script>
@@ -76,7 +78,7 @@
                     }).catch(
                     function (error) {
                         if (!error.response) {
-                            that.errorStatus = 'Network error, cannot connect to the API. Please try later';
+                            that.errorStatus = 'Network error, cannot connect to the API. Please try later...';
                         } else {
                             that.errorStatus = error.response.data.message;
                         }
@@ -90,3 +92,26 @@
         }
     }
 </script>
+<style>
+
+    div#createFlightReview h2 {
+        margin: 50px 0;
+    }
+
+    div#createFlightReview textarea {
+        min-height:50px;
+        height:auto;
+    }
+
+    div#createFlightReview {
+        width: 500px;
+        margin: 20px auto;
+    }
+
+    div#createFlightReview label {
+        float: left;
+        font-weight: bolder;
+
+    }
+
+</style>
