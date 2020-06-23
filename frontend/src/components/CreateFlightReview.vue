@@ -34,7 +34,7 @@
                           rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save Review</button>
-            <button v-on:click="backHome" type="button" class="btn btn-info m-4">Back to the List</button>
+            <router-link to='/' type="button" class="btn btn-info m-4">Back to the List</router-link>
         </form>
         </div>
     </div>
@@ -53,6 +53,12 @@
                 review_title: "",
                 review_body: "",
                 errorStatus: ""
+            }
+        },
+        mounted() {
+
+            if(this.$cookies.get('accessToken') !== false) {
+                this.$router.push('/login')
             }
         },
         methods: {
@@ -74,7 +80,7 @@
                     .post(API_URL, data, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
-                        this.$emit('backHome', "You have successfully created a new flight review!");
+                        this.$router.push('/')
                     }).catch(
                     function (error) {
                         if (!error.response) {
@@ -85,9 +91,6 @@
                     }
                 )
 
-            },
-            backHome: function () {
-                this.$emit('backHome');
             }
         }
     }

@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-6">
                     <button v-on:click="logout" type="button" class="btn btn-warning">Logout</button>
-                    <button v-on:click="displayCreateForm" type="button" class="btn btn-success">Add new Review +</button>
+                    <router-link to="/create" type="button" class="btn btn-success">Add new Review +</router-link>
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
                 <td>{{review.airline}}</td>
                 <td>{{review.flight_number}}</td>
                 <td>{{review.review_points}}</td>
-                <td><a @click="viewMore(review.id)" href="#">View More</a></td>
-                <td><a @click="update(review.id)" href="#">Edit</a></td>
+                <td><router-link :to="`/view/${review.id}`">View More</router-link></td>
+                <td><router-link :to="`/update/${review.id}`">Edit</router-link></td>
                 <td><a @click="deleteReview(review.id)" href="#">Delete</a></td>
             </tr>
             </tbody>
@@ -48,6 +48,11 @@
             }
         },
         mounted() {
+
+            if(this.$cookies.get('accessToken') !== false) {
+                this.$router.push('/login')
+            }
+
             let access_token = this.$cookies.get('accessToken');
             axios
                 .get(API_URL, {headers: { Authorization: `Bearer ${access_token}` }})
@@ -60,24 +65,6 @@
                 this.$emit('logoutUser')
             },
 
-            update: function (id) {
-                let access_token = this.$cookies.get('accessToken');
-                axios
-                    .get(API_URL + "/" +id, {headers: { Authorization: `Bearer ${access_token}` }})
-                    .then(response => {
-                        this.$emit('update', response.data);
-                })
-            },
-
-            viewMore: function (id) {
-                let access_token = this.$cookies.get('accessToken');
-                axios
-                    .get(API_URL + "/" +id, {headers: { Authorization: `Bearer ${access_token}` }})
-                    .then(response => {
-                        this.$emit('viewMore', response.data);
-                    })
-            },
-
             deleteReview: function (id) {
                 let that = this;
                 if(confirm('Hey! Are you sure you want to delete the flight review?')) {
@@ -86,6 +73,7 @@
                         .delete(API_URL + "/" +id, {headers: {Authorization: `Bearer ${access_token}`}})
                         .then(response => {
                             console.log(response);
+
                         }).catch(
                         function (error) {
                             if (!error.response) {
@@ -99,7 +87,7 @@
                         .get(API_URL, {headers: {Authorization: `Bearer ${access_token}`}})
                         .then(response => {
                             this.reviews = response.data;
-                            this.$emit('backHome', "You have successfully deleted the flight review.");
+                            //this.$router.push('/')
                         }).catch(
                         function (error) {
                             if (!error.response) {
@@ -111,11 +99,7 @@
                     )
                 }
 
-            },
-
-            displayCreateForm: function () {
-                this.$emit('displayCreateForm')
-            },
+            }
         }
     }
 </script>

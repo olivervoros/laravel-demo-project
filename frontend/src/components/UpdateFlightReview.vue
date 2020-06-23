@@ -35,7 +35,7 @@
                           rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Update Review</button>
-            <button v-on:click="backHome" type="button" class="btn btn-info m-4">Back to the List</button>
+            <router-link to='/' type="button" class="btn btn-info m-4">Back to the List</router-link>
         </form>
         </div>
     </div>
@@ -46,17 +46,22 @@
 
     export default {
         name: 'UpdateFlightReview',
-        props: ['review'],
-        data: function () {
+        data() {
             return {
-                id: "",
-                flight_number: "",
-                airline: "",
-                review_points: "",
-                review_title: "",
-                review_body: "",
+                review: {},
                 errorStatus: ""
             }
+        },
+        mounted() {
+
+            if(this.$cookies.get('accessToken') !== false) {
+                this.$router.push('/login')
+            }
+
+            let access_token = this.$cookies.get('accessToken');
+            axios
+                .get(API_URL + "/" + this.$route.params.id, {headers: {Authorization: `Bearer ${access_token}`}})
+                .then(response => (this.review = response.data))
         },
         methods: {
             update: function (event) {
@@ -84,7 +89,7 @@
                     .put(API_URL +"/"+ reviewId, data, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
-                        this.$emit('backHome', "You have successfully updated the flight review.");
+                        this.$router.push('/')
                     }).catch(
                     function (error) {
                         if (!error.response) {
@@ -95,9 +100,6 @@
                     }
                 )
 
-            },
-            backHome: function () {
-                this.$emit('backHome');
             }
         }
     }
