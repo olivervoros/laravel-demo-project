@@ -49,14 +49,17 @@
                     .then(response => {
                         this.$cookies.set('accessToken', response.data.access_token);
                         this.$cookies.set('loggedInUser', JSON.stringify(response.data.user));
+                        console.log("LOGIN!!!!");
                         this.$emit('loginUser',"Welcome! You have logged in successfully...");
                     }).catch(
                     function (error) {
                         if (!error.response) {
                             that.errorStatus = 'Network error, cannot connect to the API. Please try later';
+                            console.log(that.errorStatus);
                             setTimeout(() => that.errorStatus = "", 5000)
                         } else {
                             that.errorStatus = error.response.data.message;
+                            console.log(that.errorStatus);
                             setTimeout(() => that.errorStatus = "", 5000)
                         }
                     }

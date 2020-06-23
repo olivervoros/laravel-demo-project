@@ -43,7 +43,7 @@
             }
         },
         mounted() {
-            if(this.$cookies.get('accessToken') !== false) {
+            if(this.$cookies.get('accessToken') === "false") {
                 this.$router.push('/login')
             }
 

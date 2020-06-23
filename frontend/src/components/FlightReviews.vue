@@ -49,7 +49,7 @@
         },
         mounted() {
 
-            if(this.$cookies.get('accessToken') !== false) {
+            if(this.$cookies.get('accessToken') === "false") {
                 this.$router.push('/login')
             }
 
@@ -61,6 +61,7 @@
         methods: {
 
             logout: function () {
+                console.log("LOGOUT");
                 this.$cookies.set('accessToken', false);
                 this.$emit('logoutUser')
             },

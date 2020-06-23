@@ -1,10 +1,9 @@
 <template>
     <div id="app">
-        <router-view>
-            @logoutUser="logoutUser"
-            @update="update"
+        <router-view
             @loginUser="loginUser"
-        </router-view>
+            @logoutUser="logoutUser"
+        />
     </div>
 </template>
 
@@ -23,14 +22,18 @@
         },
         methods: {
             loginUser(message) {
+                console.log("LOGIN_USER!!");
                 this.loggedIn = true
                 if (message) {
                     this.message = message
                     setTimeout(() => this.message = "", 5000)
                 }
+                this.$router.push('/')
             },
             logoutUser() {
+                console.log("LOGOUT_USER!!");
                 this.loggedIn = false
+                this.$router.push('/login')
             }
         }
     }
