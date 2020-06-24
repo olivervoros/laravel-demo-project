@@ -24,13 +24,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="review of reviews" :key="review.id">
+            <tr v-for="review of $store.state.reviews" :key="review.id">
                 <td>{{review.id}}</td>
                 <td>{{review.airline}}</td>
                 <td>{{review.flight_number}}</td>
                 <td>{{review.review_points}}</td>
-                <td><router-link :to="`/view/${review.id}`">View More</router-link></td>
-                <td><router-link :to="`/update/${review.id}`">Edit</router-link></td>
+                <td>
+                    <router-link :to="`/view/${review.id}`">View More</router-link>
+                </td>
+                <td>
+                    <router-link :to="`/update/${review.id}`">Edit</router-link>
+                </td>
                 <td><a @click="deleteReview(review.id)" href="#">Delete</a></td>
             </tr>
             </tbody>
@@ -38,67 +42,26 @@
     </div>
 </template>
 <script>
-    import axios from 'axios';
-    import { API_URL } from '../main';
 
     export default {
-        props: ['loggedIn'],
-        data() {
-            return {
-                reviews: null
-            }
-        },
         mounted() {
 
-            if(this.loggedIn === false) {
+            if (this.$store.state.loggedIn === false) {
                 this.$router.push('/login')
             }
 
-            let access_token = this.$cookies.get('accessToken');
-            axios
-                .get(API_URL, {headers: { Authorization: `Bearer ${access_token}` }})
-                .then(response => (this.reviews = response.data))
+            this.$store.dispatch('getReviews');
         },
         methods: {
 
             logout: function () {
-                this.$cookies.set('accessToken', false);
-                this.$emit('logoutUser')
+
+                this.$store.dispatch('logout');
             },
 
             deleteReview: function (id) {
-                let that = this;
-                if(confirm('Hey! Are you sure you want to delete the flight review?')) {
-                    let access_token = this.$cookies.get('accessToken');
-                    axios
-                        .delete(API_URL + "/" +id, {headers: {Authorization: `Bearer ${access_token}`}})
-                        .then(response => {
-                            console.log(response);
 
-                        }).catch(
-                        function (error) {
-                            if (!error.response) {
-                                that.errorStatus = 'Network error, cannot connect to the API. Please try later';
-                            } else {
-                                that.errorStatus = error.response.data.message;
-                            }
-                        }
-                    )
-                    axios
-                        .get(API_URL, {headers: {Authorization: `Bearer ${access_token}`}})
-                        .then(response => {
-                            this.reviews = response.data;
-                            this.$emit('showMessage',"You have successfully deleted the review...");
-                        }).catch(
-                        function (error) {
-                            if (!error.response) {
-                                that.errorStatus = 'Network error, cannot connect to the API. Please try later';
-                            } else {
-                                that.errorStatus = error.response.data.message;
-                            }
-                        }
-                    )
-                }
+                this.$store.dispatch('deleteReview', id);
 
             }
         }
@@ -111,11 +74,13 @@
         padding: 16px 30px;
         border-radius: 3px 3px 0 0;
     }
+
     .table-title h2 {
         margin: 5px;
         font-size: 24px;
         text-align: left
     }
+
     .table-title .btn {
         color: #fff;
         float: right;

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store.js'
 import App from './App.vue'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,7 +17,7 @@ Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
-const router = new VueRouter({
+export const router = new VueRouter({
     routes: [
         {
             path: '/',
@@ -51,5 +52,6 @@ export const API_LOGIN_URL = "http://localhost:8000/api/login";
 
 new Vue({
   render: h => h(App),
+    store,
     router
 }).$mount('#app')

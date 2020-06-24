@@ -1,16 +1,11 @@
 <template>
     <div id="app">
         <transition name="fade">
-            <div v-if='message!==""' class="alert alert-primary" role="alert">
-                {{ message }}
+            <div v-if='this.$store.state.message!==""' class="alert alert-primary" role="alert">
+                {{ this.$store.state.message }}
             </div>
         </transition>
-        <router-view
-            @loginUser="loginUser"
-            @logoutUser="logoutUser"
-            @showMessage="showMessage"
-            :loggedIn="loggedIn"
-        />
+        <router-view></router-view>
     </div>
 </template>
 
@@ -23,29 +18,6 @@
                 loggedIn: (this.$cookies.get('accessToken') !== "false"),
                 review: [],
                 message: ""
-            }
-        },
-        methods: {
-            loginUser(message) {
-                this.loggedIn = true
-                if (message) {
-                    this.message = message
-                    setTimeout(() => this.message = "", 5000)
-                }
-                this.$router.push('/')
-            },
-            logoutUser() {
-                this.loggedIn = false
-                this.$router.push('/login')
-            },
-            showMessage(message) {
-                if (message) {
-                    this.message = message
-                    setTimeout(() => this.message = "", 5000)
-                }
-                if (this.$route.path !== "/") {
-                    this.$router.push('/')
-                }
             }
         }
     }
