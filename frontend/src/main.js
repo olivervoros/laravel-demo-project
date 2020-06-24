@@ -17,6 +17,9 @@ Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
+export const API_URL = "http://localhost:8000/api/flightreviews";
+export const API_LOGIN_URL = "http://localhost:8000/api/login";
+
 export const router = new VueRouter({
     routes: [
         {
@@ -44,11 +47,15 @@ export const router = new VueRouter({
             name: 'LOGIN',
             component: LoginForm
         }
-    ]
-})
+    ],
 
-export const API_URL = "http://localhost:8000/api/flightreviews";
-export const API_LOGIN_URL = "http://localhost:8000/api/login";
+});
+
+router.beforeEach((to, from, next) => {
+    console.log(store.state.loggedIn);
+    if (to.name !== 'LOGIN' && ( ! store.state.loggedIn)) next({ name: 'LOGIN' })
+    else next()
+});
 
 new Vue({
   render: h => h(App),

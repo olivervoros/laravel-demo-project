@@ -46,10 +46,6 @@
     export default {
         mounted() {
 
-            if (this.$store.state.loggedIn === false) {
-                this.$router.push('/login')
-            }
-
             this.$store.dispatch('getReviews');
         },
         methods: {

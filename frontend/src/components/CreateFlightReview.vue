@@ -48,12 +48,6 @@
                 errorStatus: ""
             }
         },
-        mounted() {
-
-            if(this.$store.state.loggedIn === false) {
-                this.$router.push('/login')
-            }
-        },
         methods: {
 
             create: function () {

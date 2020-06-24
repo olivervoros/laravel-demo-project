@@ -40,9 +40,6 @@
             }
         },
         mounted() {
-            if(this.$store.state.loggedIn === false) {
-                this.$router.push('/login')
-            }
 
             let reviewId = this.$route.params.id;
             this.$store.dispatch('viewReview', reviewId);

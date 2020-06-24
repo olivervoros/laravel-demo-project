@@ -28,9 +28,7 @@ export default new Vuex.Store({
         },
         setMessage(state, message) {
             state.message = message;
-        },
-        clearMessage(state, sec = 5000) {
-            setTimeout(() => state.message = "", sec)
+            setTimeout(() => state.message = "", 5000)
         },
         login(state) {
             state.loggedIn = true;
@@ -65,7 +63,6 @@ export default new Vuex.Store({
                 .then(response => {
                     console.log(response);
                     context.commit('setMessage', "You have successfully created the review...")
-                    context.commit('clearMessage')
                 }).catch(
                 function (error) {
                     if (!error.response) {
@@ -141,13 +138,12 @@ export default new Vuex.Store({
                 )
             }
         },
-        login(context, userData) {
-            axios
+        async login(context, userData) {
+            await axios
                 .post(API_LOGIN_URL, { email: userData.email, password: userData.password})
                 .then(response => {
                     cookie.set('accessToken', response.data.access_token);
                     cookie.set('loggedInUser', JSON.stringify(response.data.user));
-                    context.commit('setMessage', "You have logged in successfully...")
                 }).catch(
                 function (error) {
                     if (!error.response) {
@@ -157,6 +153,8 @@ export default new Vuex.Store({
                     }
                 }
             )
+            await context.commit("login")
+            await context.commit('setMessage', "You have logged in successfully...")
             router.push('/')
         },
         viewReview(context, reviewId) {
