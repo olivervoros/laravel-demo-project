@@ -45,6 +45,7 @@
     import { API_URL } from "../main";
 
     export default {
+        props: ['loggedIn'],
         name: 'UpdateFlightReview',
         data() {
             return {
@@ -54,7 +55,7 @@
         },
         mounted() {
 
-            if(this.$cookies.get('accessToken') === "false") {
+            if(this.loggedIn === false) {
                 this.$router.push('/login')
             }
 
@@ -89,7 +90,8 @@
                     .put(API_URL +"/"+ reviewId, data, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
-                        this.$router.push('/')
+                        this.$emit('showMessage',"You have successfully updated the review...");
+
                     }).catch(
                     function (error) {
                         if (!error.response) {

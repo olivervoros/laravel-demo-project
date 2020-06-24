@@ -44,6 +44,7 @@
     import { API_URL } from '../main';
 
     export default {
+        props: ['loggedIn'],
         name: 'CreateFlightReview',
         data: function () {
             return {
@@ -57,7 +58,7 @@
         },
         mounted() {
 
-            if(this.$cookies.get('accessToken') === "false") {
+            if(this.loggedIn === false) {
                 this.$router.push('/login')
             }
         },
@@ -80,7 +81,7 @@
                     .post(API_URL, data, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
-                        this.$router.push('/')
+                        this.$emit('showMessage',"You have successfully created the review...");
                     }).catch(
                     function (error) {
                         if (!error.response) {

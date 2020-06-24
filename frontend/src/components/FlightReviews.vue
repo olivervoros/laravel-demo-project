@@ -42,6 +42,7 @@
     import { API_URL } from '../main';
 
     export default {
+        props: ['loggedIn'],
         data() {
             return {
                 reviews: null
@@ -49,7 +50,7 @@
         },
         mounted() {
 
-            if(this.$cookies.get('accessToken') === "false") {
+            if(this.loggedIn === false) {
                 this.$router.push('/login')
             }
 
@@ -61,7 +62,6 @@
         methods: {
 
             logout: function () {
-                console.log("LOGOUT");
                 this.$cookies.set('accessToken', false);
                 this.$emit('logoutUser')
             },
@@ -88,7 +88,7 @@
                         .get(API_URL, {headers: {Authorization: `Bearer ${access_token}`}})
                         .then(response => {
                             this.reviews = response.data;
-                            //this.$router.push('/')
+                            this.$emit('showMessage',"You have successfully deleted the review...");
                         }).catch(
                         function (error) {
                             if (!error.response) {

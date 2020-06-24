@@ -37,13 +37,14 @@
     import {API_URL} from "../main";
 
     export default {
+        props: ['loggedIn'],
         data() {
             return {
                 review: {}
             }
         },
         mounted() {
-            if(this.$cookies.get('accessToken') === "false") {
+            if(this.loggedIn === false) {
                 this.$router.push('/login')
             }
 

@@ -1,8 +1,15 @@
 <template>
     <div id="app">
+        <transition name="fade">
+            <div v-if='message!==""' class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+        </transition>
         <router-view
             @loginUser="loginUser"
             @logoutUser="logoutUser"
+            @showMessage="showMessage"
+            :loggedIn="loggedIn"
         />
     </div>
 </template>
@@ -11,8 +18,6 @@
 
     export default {
         name: 'App',
-        components: {
-        },
         data: function () {
             return {
                 loggedIn: (this.$cookies.get('accessToken') !== "false"),
@@ -22,7 +27,6 @@
         },
         methods: {
             loginUser(message) {
-                console.log("LOGIN_USER!!");
                 this.loggedIn = true
                 if (message) {
                     this.message = message
@@ -31,9 +35,17 @@
                 this.$router.push('/')
             },
             logoutUser() {
-                console.log("LOGOUT_USER!!");
                 this.loggedIn = false
                 this.$router.push('/login')
+            },
+            showMessage(message) {
+                if (message) {
+                    this.message = message
+                    setTimeout(() => this.message = "", 5000)
+                }
+                if (this.$route.path !== "/") {
+                    this.$router.push('/')
+                }
             }
         }
     }
