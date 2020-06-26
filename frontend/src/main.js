@@ -52,7 +52,6 @@ export const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log(store.state.loggedIn);
     if (to.name !== 'LOGIN' && ( ! store.state.loggedIn)) next({ name: 'LOGIN' })
     else next()
 });

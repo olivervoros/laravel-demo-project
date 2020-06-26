@@ -3,14 +3,14 @@ import Vuex from 'vuex';
 import axios from "axios";
 import {API_LOGIN_URL, API_URL} from "./main";
 import cookie from 'vue-cookies'
-import { router } from "./main.js"
+import {router} from "./main.js"
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        reviews : [],
-        review : [],
+        reviews: [],
+        review: [],
         errorStatus: '',
         message: '',
         loggedIn: (cookie.get('accessToken') !== "false")
@@ -44,6 +44,18 @@ export default new Vuex.Store({
             axios
                 .get(API_URL, {headers: { Authorization: `Bearer ${access_token}` }})
                 .then(response => (context.commit('setReviews', response.data)))
+                .catch(
+                    function (error) {
+                        if (error.response.status === 401) {
+                            context.dispatch('logout');
+                        }
+                        if (!error.response) {
+                            context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
+                        } else {
+                            context.commit('setErrorStatus', error.response.data.message)
+                        }
+                    }
+                )
         },
         createReview(context, review) {
 
@@ -65,6 +77,9 @@ export default new Vuex.Store({
                     context.commit('setMessage', "You have successfully created the review...")
                 }).catch(
                 function (error) {
+                    if (error.response.status === 401) {
+                        context.dispatch('logout');
+                    }
                     if (!error.response) {
                         context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
                     } else {
@@ -88,13 +103,16 @@ export default new Vuex.Store({
 
             let access_token = cookie.get('accessToken');
             axios
-                .put(API_URL +"/"+ review.id, data, {headers: {Authorization: `Bearer ${access_token}`}})
+                .put(API_URL + "/" + review.id, data, {headers: {Authorization: `Bearer ${access_token}`}})
                 .then(response => {
                     console.log(response);
                     context.commit('login')
                     context.commit('setMessage', "You have successfully updated the review...")
                 }).catch(
                 function (error) {
+                    if (error.response.status === 401) {
+                        context.dispatch('logout');
+                    }
                     if (!error.response) {
                         context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
                     } else {
@@ -106,15 +124,18 @@ export default new Vuex.Store({
         },
         deleteReview(context, id) {
 
-            if(confirm('Hey! Are you sure you want to delete the flight review?')) {
+            if (confirm('Hey! Are you sure you want to delete the flight review?')) {
                 let access_token = cookie.get('accessToken');
                 axios
-                    .delete(API_URL + "/" +id, {headers: {Authorization: `Bearer ${access_token}`}})
+                    .delete(API_URL + "/" + id, {headers: {Authorization: `Bearer ${access_token}`}})
                     .then(response => {
                         console.log(response);
 
                     }).catch(
                     function (error) {
+                        if (error.response.status === 401) {
+                            context.dispatch('logout');
+                        }
                         if (!error.response) {
                             context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
                         } else {
@@ -129,6 +150,9 @@ export default new Vuex.Store({
                         context.commit('setMessage', "You have successfully deleted the review...")
                     }).catch(
                     function (error) {
+                        if (error.response.status === 401) {
+                            context.dispatch('logout');
+                        }
                         if (!error.response) {
                             context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
                         } else {
@@ -140,19 +164,19 @@ export default new Vuex.Store({
         },
         async login(context, userData) {
             await axios
-                .post(API_LOGIN_URL, { email: userData.email, password: userData.password})
+                .post(API_LOGIN_URL, {email: userData.email, password: userData.password})
                 .then(response => {
                     cookie.set('accessToken', response.data.access_token);
                     cookie.set('loggedInUser', JSON.stringify(response.data.user));
                 }).catch(
-                function (error) {
-                    if (!error.response) {
-                        context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
-                    } else {
-                        context.commit('setErrorStatus', error.response.data.message)
+                    function (error) {
+                        if (!error.response) {
+                            context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
+                        } else {
+                            context.commit('setErrorStatus', error.response.data.message)
+                        }
                     }
-                }
-            )
+                )
             await context.commit("login")
             await context.commit('setMessage', "You have logged in successfully...")
             router.push('/')
@@ -162,6 +186,18 @@ export default new Vuex.Store({
             axios
                 .get(API_URL + "/" + reviewId, {headers: {Authorization: `Bearer ${access_token}`}})
                 .then(response => (context.commit('setReview', response.data)))
+                .catch(
+                    function (error) {
+                        if (error.response.status === 401) {
+                            context.dispatch('logout');
+                        }
+                        if (!error.response) {
+                            context.commit('setErrorStatus', "Network error, cannot connect to the API. Please try later...")
+                        } else {
+                            context.commit('setErrorStatus', error.response.data.message)
+                        }
+                    }
+                )
         },
         logout(context) {
             context.commit('logout');
